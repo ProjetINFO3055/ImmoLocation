@@ -1,4 +1,4 @@
-package Interface_Graphique;
+package vue;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;

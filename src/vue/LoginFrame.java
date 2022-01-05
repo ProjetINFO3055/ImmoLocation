@@ -1,4 +1,4 @@
-package Interface_Graphique;
+package vue;
 
 
 import javax.swing.*;
