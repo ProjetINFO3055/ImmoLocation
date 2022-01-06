@@ -18,6 +18,12 @@ Scanner clavier = new Scanner(System.in);
  * 
  * CONSTRUCTEUR particulier D'UN LOCATAIRE
  * ajouterLocataire();
+ * OMINSERT INTO Employe(Nom, Prenom, NAS, Telephone, IdDepartement)
+VALUES ('Lapierre',
+'Pierre',
+987654321,
+'(514) 456-7890‘,
+(SELECTId FROMDepartementWHERENom = 'Ventes'));
  * 
  * DESTRUCTION D'UN LOCATAIRE
  * supprimerLocataire();
