@@ -1,6 +1,5 @@
-import java.awt.EventQueue;
-import java.sql.Connection;
-import java.sql.DriverManager;
+ import java.awt.EventQueue;
+ import java.sql.*;
 
 public class main {
 
@@ -31,10 +30,26 @@ public class main {
             	    System.out.println("Erreur");
             	    System.exit(0);
             	}
+            	ResultSet resultat = null;
+        		String requete  = "SELECT * FROM status ";
+        		
+        		try {
+        				 Connection conn = DriverManager.getConnection(url, user, passwd);
+        				Statement auxi = conn.createStatement();
+        				resultat = auxi.executeQuery(requete);
+        			
+        		}
+        		catch (SQLException e){
+        			
+        		
+        		}
+        		
             }
         });
+		
+		
+		
 	}
 
 
 	}
-
