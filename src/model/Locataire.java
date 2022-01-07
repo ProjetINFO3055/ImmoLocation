@@ -191,6 +191,10 @@ VALUES ('Lapierre',
 	{
 		return this.name;
 	}
+	// on definit le nom du locataire
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 }
 	
