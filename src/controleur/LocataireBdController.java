@@ -45,7 +45,10 @@ public class LocataireBdController {
 
 	      //creation et execution de la requete
 	      affiche("creation et execution de la requête");
+
 	      requete = "SELECT * FROM authentification";
+	      //requete = "INSERT INTO locataire(ncni, nom, prenom, telephone,profession)\n";
+	    		  
 
 	      try {
 	         Statement stmt = con.createStatement();
