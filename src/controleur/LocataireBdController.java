@@ -25,7 +25,7 @@ public class LocataireBdController {
 	      ResultSet résultats = null;
 	      String requete = "";
 
-	      String url = "jdbc:mysql://localhost:3306/immo_location";
+	    String url = "jdbc:mysql://localhost:3306/immo_location";
       	String user = "root";
       	String passwd = "";
       	
