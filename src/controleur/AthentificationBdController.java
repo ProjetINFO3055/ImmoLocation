@@ -9,8 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 */
 
-public class LocataireBdController {
-	
+public class AthentificationBdController {
 	private static void affiche(String message) {
 	      System.out.println(message);
 	   }
@@ -20,7 +19,7 @@ public class LocataireBdController {
 	      System.exit(99);
 	   }
 
-	   public static void Main(String[] args) {
+	   public static void main(java.lang.String[] args) {
 	      Connection con = null;
 	      ResultSet résultats = null;
 	      String requete = "";
@@ -45,41 +44,25 @@ public class LocataireBdController {
       	    System.exit(0);
       	}
 
+	     
 
 	      //creation et execution de la requete
 	      affiche("creation et execution de la requête");
-	   
-	      public boolean ajouter(int ncni, String nom, String prenom, int telephone ,String profession) 
-	      boolean ajout = false;
-    	  String requete = null;
-	      {
-	    	  try 
-	    	  { 
-		   	requete = " INSERT INTO locataire(ncni, nom,prenom,telephone,profession) VALUES (?,?,?,?,?)";
-		   	PreparedStatement ajoutlocataire= con.prepareStatement(requete);
-		   	ajoutlocataire.Int(1);
-		   	ajoutlocataire.setString (2, nom.getString());
-		   	ajoutlocataire.setString (3, prenom.getString());
-		   	ajoutlocataire.setString (4, telephone.getString());
-		   	ajoutlocataire.setString (5, profession.getString());
-		   	
-		   	ajoutlocataire.executeUpdate();  
-		   	ajout = true;
-		 
-	    	  //Statement stmt = con.createStatement();
-	    	  //résultats = stmt.executeQuery(requete);
-	        }
-	         
-	       catch (SQLException e)
-	      {
+	      
+	      requete = "SELECT * FROM authentification";
+	     
+
+	      try {
+	    	  //PreparedStatement ajoutinfo = con.prepareStatement("SELECT * FROM authentification WHERE nom_usr, mdp =?,?" );
+		      
+	    	  Statement stmt = con.createStatement();
+	    	  résultats = stmt.executeQuery(requete);
+	          
+	      } catch (SQLException e) {
 	         arret("Anomalie lors de l'execution de la requête");
 	      }
-	   
-	   			return ajout;
-	      
-}	   
-	   
 
+	      //parcours des données retournées
 	      affiche("parcours des données retournées");
 	      try {
 	         ResultSetMetaData rsmd = résultats.getMetaData();
@@ -99,9 +82,12 @@ public class LocataireBdController {
 	         arret(e.getMessage());
 	      }
 
+	      affiche("fin du programme");
 	      System.exit(0);
 	   }
-	}
+}
+	
+
 
 
 
