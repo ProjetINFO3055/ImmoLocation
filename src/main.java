@@ -4,13 +4,18 @@
 public class main {
 
 	public static void main(String[] args) {
+		// test de la fonction toString
+		/*Locataire loc = new Loactaire("BIDJOCKA", "luc","Medecin", 655014702 , 1234752);
+		*loc.toString
+		*System.out.println(loc);
+		*/
 		EventQueue.invokeLater(new Runnable() {
             public void run() {
-                // Le code à exécuter est à insérer ici.
+                // Le code Ã  exÃ©cuter est Ã  insÃ©rer ici.
             	
             	/*
             	 *  Informations de connexion, pour connecter l'application
-            	 *  à la BDD
+            	 *  Ã  la BDD
             	 */
             	String url = "jdbc:mysql://localhost:3306/immo_location";
             	String user = "root";
@@ -18,8 +23,8 @@ public class main {
             	
             	
             	/*
-            	 *  On vérifie bien que la connexion avec la base de données
-            	 *  s'effectue sans aucun problème.
+            	 *  On vÃ©rifie bien que la connexion avec la base de donnÃ©es
+            	 *  s'effectue sans aucun problÃ¨me.
             	 */
             	try {
             	    Class.forName("com.mysql.jdbc.Driver");
