@@ -7,7 +7,6 @@ public class main {
 		EventQueue.invokeLater(new Runnable() {
             public void run() {
                 // Le code à exécuter est à insérer ici.
-            	
             	/*
             	 *  Informations de connexion, pour connecter l'application
             	 *  à la BDD
@@ -41,7 +40,6 @@ public class main {
         		}
         		catch (SQLException e){
         			
-        		
         		}
         		
             }
