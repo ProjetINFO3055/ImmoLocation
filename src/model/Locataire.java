@@ -5,11 +5,9 @@ import java.util.Scanner;
 public class Locataire {
 Scanner clavier = new Scanner(System.in);
 	private Date dateNaissance;
-	private String name;
-	private String lastName;
+	private String nom;
+	private String prenom;
 	private String metier;
-	private String mail;
-	private String informatioSuplementaire;
 	private int telephone;
 	private int numeroCNI;
 	
@@ -41,62 +39,44 @@ VALUES ('Lapierre',
  * getName();
  */
 	// constructeur avec paramettre, j'ajoute un 'p' devant chaque parametre pour faire la difference
-	public Locataire(String pName, String pLastName, String pMetier, String pMail, String pInformationSupplementaire, int pTelephone, int pNumeroCNI) {
-		name = pName;
-		lastName = pLastName;
+	public Locataire(String pNom, String pPrenom, String pMetier,  int pTelephone, int ncni) {
+		nom = pNom;
+		prenom = pPrenom;
 		metier = pMetier;
-		mail = pMail;
-		informationSupplementaire = pInformationSupplementaire;
 		telephone = pTelephone;
-		numeroCNI = pNumeroCNI;
+		numeroCNI = ncni;
 	}
-	// methode retournant le lastName du locataire
-	public String getLastName() {
-		return lastName;
+	// methode retournant le prenom du locataire
+	public String getPrenom() {
+		return prenom;
 	}
-	// on definit le 'lastName' du locataire
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	// on definit le 'prenom' du locataire
+	public void setPrenom(String Pprenom) {
+		prenom = pPrenom;
 	}
 	// on retourne le metier du locataire
 	public String getMetier() {
 		return metier;
 	}
 	// on definit le metier du locataire
-	public void setMetier(String metier) {
-		this.metier = metier;
-	}
-	// on retourne le mail du locataire
-	public String getMail() {
-		return mail;
-	}
-	// on definit le mail du locataire
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-	// on retourne l'information supplementaire du locataire
-	public String getInformationSupplementaire() {
-		return informationSupplementaire;
-	}
-	// on definit l'information supplementaire du locataire
-	public void setInformationSupplementaire(String informationSupplementaire) {
-		this.informationSupplementaire = informationSupplementaire;
+	public void setMetier(String pMetier) {
+		metier = pMetier;
 	}
 	// on retourne le numero de telephone du locataire
 	public int getTelephone() {
 		return telephone;
 	}
 	// on definit le numero de telephone du locataire
-	public void setTelephone(int telephone) {
-		this.telephone = telephone;
+	public void setTelephone(int pTelephone) {
+		telephone = pTelephone;
 	}
 	// on retourne le numero de la CNI du locataire
 	public int getNumeroCNI() {
 		return numeroCNI
 	}
 	// on definit le numero de CNI du locataire
-	public void SetNumeroCNI(int numeroCNI) {
-		this.numeroCNI = numeroCNI;
+	public void SetNumeroCNI(int ncni) {
+		numeroCNI = ncni;
 	}
 		
    	
@@ -187,14 +167,30 @@ VALUES ('Lapierre',
 		
 		
 	}
-	public String getName()
+	public String getNom()
 	{
 		return this.name;
 	}
 	// on definit le nom du locataire
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String pNom) {
+		nom = pNom;
 	}
+	// description du locataire
+	public String toString() {
+		String str;
+		if(this.nom != null && this.prenom != null && this.metier != null ) {
+			str = "Description de notre locataire \n";
+			str += "nom : " +this.nom +"\n";
+			str += "prenom : " +this.prenom +"\n";
+			str += "metier : " +this.metier +"\n";
+			str += "telephone : " +this.telephone + "\n";
+			str += "numeroCNI : " +this.numeroCNI + "\n";
+		}else {
+			str = "aucune information";
+		}
+		return str;
+	}
+		
 	
 }
 	
