@@ -4,11 +4,18 @@
 public class main {
 
 	public static void main(String[] args) {
-		// test de la fonction toString
+		// test de la fonction toString de locataire
 		/*Locataire loc = new Loactaire("BIDJOCKA", "luc","Medecin", 655014702 , 1234752);
 		*loc.toString
 		*System.out.println(loc);
 		*/
+		// test de description de notre facture
+		Locataire loc = new Locataire("Ruth","Florian", "Footballeur", 654257814, 1245523);
+		Facture fact = new Facture("Ruth", "Florian","Footballeur", 654257814 , 1245523, 5, 50000, 25000);
+		
+		fact.CalculerFacture(25000);
+		fact.toString();
+		System.out.println(fact);
 		EventQueue.invokeLater(new Runnable() {
             public void run() {
                 // Le code à exécuter est à insérer ici.
