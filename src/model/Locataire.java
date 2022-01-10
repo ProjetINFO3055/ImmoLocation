@@ -195,6 +195,21 @@ VALUES ('Lapierre',
 	public void setName(String name) {
 		this.name = name;
 	}
+	// description du locataire
+	public String toString() {
+		String str;
+		if(this.name != null && this.lastName != null && this.metier != null ) {
+			str = "description de notre locataire \n";
+			str += "nom : " +this.name + "\n";
+			str += "prenom : " +this.lastName + "\n";
+			str += "metier : " +this.metier + "\n";
+			str += "telephone : " +this.telephone + "\n";
+			str += "numero CNI : " +this.numeroCNI +"\n";
+		} else {
+			str = "aucune information";
+		}
+	}
+		return str;
 	
 }
 	
