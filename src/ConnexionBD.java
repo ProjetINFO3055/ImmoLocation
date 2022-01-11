@@ -1,22 +1,23 @@
+package src;
+
 import java.sql.*;
 
 public class ConnexionBD {
-
 
 	  static final String url = "jdbc:mysql://localhost:3306/immo_location";
 	  static final String user = "root";
 	  static final String pwd = "";
 	  
-	  Connection connection;
+	  Connection con;
 
 	  public ConnexionBD(){
 	    connexion();
 	  }
-
+     // connexion a la base de donnee
 	  public void connexion(){
 	    try{
 	      Class.forName("com.mysql.cj.jdbc.Driver");
-	      connection = DriverManager.getConnection(url, user, pwd);
+	      con = DriverManager.getConnection(url, user, pwd);
 	      System.out.println("connexion a la BD!");
 	    }catch(SQLException|ClassNotFoundException e){
 	      System.out.println("Erreur de connexion a la BD!");
@@ -26,7 +27,7 @@ public class ConnexionBD {
 
 	  public ResultSet select(String query){
 	    try{
-	      Statement statement = connection.createStatement();
+	      Statement statement = con.createStatement();
 	      ResultSet result = statement.executeQuery(query);
 	      return result;
 	    }catch(SQLException e){
@@ -38,7 +39,7 @@ public class ConnexionBD {
 
 	  public int update(String query){
 	    try{
-	      Statement statement = connection.createStatement();
+	      Statement statement = con.createStatement();
 	      return statement.executeUpdate(query);
 	    }catch(SQLException e){
 	      System.out.println("ERROR while executing update query");
@@ -49,7 +50,7 @@ public class ConnexionBD {
 
 	  public int delete(String query){
 	    try{
-	      Statement statement = connection.createStatement();
+	      Statement statement = con.createStatement();
 	      return statement.executeUpdate(query);
 	    }catch(SQLException e){
 	      System.out.println("ERROR while deleting line!");
@@ -60,7 +61,7 @@ public class ConnexionBD {
 
 	  public void close(){
 	    try{
-	      connection.close();
+	      con.close();
 	    }catch(SQLException e){
 	      System.out.println("ERROR while closing connections!");
 	      System.out.println(e.toString());
@@ -72,25 +73,8 @@ public class ConnexionBD {
 	      System.exit(99);
 	   }
 	  
-	  public void afficheResultat(ResultSet resultat) {
-		  try {
-		         ResultSetMetaData rsmd = resultat.getMetaData();
-		         int nbCols = rsmd.getColumnCount();
-		         boolean encore = resultat.next();
-
-		         while (encore) {
-
-		            for (int i = 1; i <= nbCols; i++)
-		               System.out.print(resultat.getString(i) + " ");
-		            System.out.println();
-		            encore = resultat.next();
-		         }
-
-		         resultat.close();
-		      } catch (SQLException e) {
-		         arret(e.getMessage());
-		      }
-	  }
 
 
 }
+
+
