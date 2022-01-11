@@ -53,6 +53,9 @@ public class LoginFrame extends javax.swing.JFrame {
         zonetext_pannel.setBackground(new java.awt.Color(255, 0, 0));
 
         titre_label.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        
+        
+        
         titre_label.setForeground(new java.awt.Color(255, 255, 255));
         titre_label.setText("Login Form");
 
