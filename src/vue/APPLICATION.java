@@ -5,10 +5,13 @@
  */
 package src.vue;
 
-/**
- *
- * @author BRICE
- */
+import java.awt.event.MouseEvent;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+
+
 public class APPLICATION extends javax.swing.JFrame {
 
     /**
@@ -47,11 +50,12 @@ public class APPLICATION extends javax.swing.JFrame {
         nom_TextField1 = new javax.swing.JTextField();
         prenom_TextField1 = new javax.swing.JTextField();
         telephone_Textfield1 = new javax.swing.JTextField();
-        buttuon_Modifier_L1 = new javax.swing.JButton();
+        boutton_enregistrer = new javax.swing.JButton();
         titre_champs_f = new javax.swing.JLabel();
         pane_de_la_table2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jtable = new javax.swing.JTable();
+        Facture_table = new javax.swing.JTable();
+       
         
         ///////////////creation  elements proprietes/////////////////////////////
         
@@ -69,20 +73,23 @@ public class APPLICATION extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        typedeprorpriete_textfield = new javax.swing.JTextField();
+        prix_mensuel_textfield = new javax.swing.JTextField();
+        description_textfield = new javax.swing.JTextField();
+        localisation_textfield = new javax.swing.JTextField();
+        statut_textfield = new javax.swing.JTextField();
         button_ajouter_P = new javax.swing.JButton();
         buttuon_Modifier_p = new javax.swing.JButton();
         button_supprimer_p = new javax.swing.JButton();
         propriete_label = new javax.swing.JLabel();
         pane_de_la_table = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        propriete_table = new javax.swing.JTable();
         
-        /////////////////////// elements factures/////////////////////////////////
+      
+        
+        
+        /////////////////////// elements locataires/////////////////////////////////
         
         Panel_Locataire = new javax.swing.JPanel();
         pannel_titre_de_facture = new javax.swing.JPanel();
@@ -108,16 +115,14 @@ public class APPLICATION extends javax.swing.JFrame {
         button_supprimer_L = new javax.swing.JButton();
         gestion_de_locatairelabel = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        locataire_table = new javax.swing.JTable();
         
-        
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+       setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Panel_principal.setLayout(new java.awt.CardLayout());
 
         
-        /////////panneau facturation//////////////
+        /////////panneau facturation//////////////////////////////////////////////////////////////////////////////////
         
         pannel_titre_Facturation.setBackground(new java.awt.Color(51, 0, 51));
 
@@ -213,17 +218,30 @@ public class APPLICATION extends javax.swing.JFrame {
         numero_de_cni_TextField1.setForeground(new java.awt.Color(0, 0, 0));
 
         nom_TextField1.setForeground(new java.awt.Color(0, 0, 0));
-        nom_TextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nom_TextField1ActionPerformed(evt);
-            }
-        });
+        
 
         prenom_TextField1.setForeground(new java.awt.Color(0, 0, 0));
 
         telephone_Textfield1.setForeground(new java.awt.Color(0, 0, 0));
 
-        buttuon_Modifier_L1.setText("ENREGISTRER");
+        boutton_enregistrer.setText("ENREGISTRER");
+        
+        
+        
+/////////////////////////////////////AJOUTER avec le boutton enregitrer de facture//////////////////////////////////////////
+        
+        
+        
+        boutton_enregistrer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	
+         String data[]= {  numero_de_cni_TextField1.getText(), nom_TextField1.getText(),prenom_TextField1.getText(),telephone_Textfield1.getText()
+            	    };
+         DefaultTableModel tbmodel = (DefaultTableModel)Facture_table.getModel();
+         tbmodel.addRow(data);
+            
+            }});
+        
 
         titre_champs_f.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         titre_champs_f.setForeground(new java.awt.Color(255, 51, 51));
@@ -247,7 +265,7 @@ public class APPLICATION extends javax.swing.JFrame {
                             .addComponent(cautionlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(pane_de_champ3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttuon_Modifier_L1)
+                            .addComponent(boutton_enregistrer)
                             .addGroup(pane_de_champ3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(nom_TextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(numero_de_cni_TextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -280,25 +298,26 @@ public class APPLICATION extends javax.swing.JFrame {
                             .addComponent(telephone_Textfield1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(localisationlabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(82, 82, 82)
-                        .addComponent(buttuon_Modifier_L1)
+                        .addComponent(boutton_enregistrer)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         
         
-
-        jtable.setModel(new javax.swing.table.DefaultTableModel(
+/////////////////////////////////////// creation du jtable_facture/////////////////////////////////////
+        
+        
+        Facture_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+               
+                
             },
             new String [] {
                 "Identifiant du loc", "Type de propriete", "Caution", "Durée du contrat"
             }
         ));
-        jScrollPane3.setViewportView(jtable);
+        jScrollPane3.setViewportView(Facture_table);
 
+       
         javax.swing.GroupLayout pane_de_la_table2Layout = new javax.swing.GroupLayout(pane_de_la_table2);
         pane_de_la_table2.setLayout(pane_de_la_table2Layout);
         pane_de_la_table2Layout.setHorizontalGroup(
@@ -433,21 +452,108 @@ public class APPLICATION extends javax.swing.JFrame {
 
         jLabel6.setText("Localisation");
 
-        jTextField1.setForeground(new java.awt.Color(255, 51, 51));
+        typedeprorpriete_textfield.setForeground(new java.awt.Color(0,0,0));
 
-        jTextField2.setForeground(new java.awt.Color(255, 51, 51));
+        prix_mensuel_textfield.setForeground(new java.awt.Color(0,0,0));
 
-        jTextField3.setForeground(new java.awt.Color(255, 51, 51));
+        description_textfield.setForeground(new java.awt.Color(0,0,0));
 
-        jTextField4.setForeground(new java.awt.Color(255, 51, 51));
+        localisation_textfield.setForeground(new java.awt.Color(0,0,0));
 
-        jTextField5.setForeground(new java.awt.Color(255, 51, 51));
+        statut_textfield.setForeground(new java.awt.Color(0,0,0));
 
+        
+        
+//////////////////////////////ajouter propriete avec le boutton ajouter_p/////////////////////////////////////////////////////////////////
+        
         button_ajouter_P.setText("Ajouter");
+    button_ajouter_P.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	
+            	// test si les champs sont vides
+            	
+            	
+            	if(typedeprorpriete_textfield.getText().isEmpty() || prix_mensuel_textfield.getText().isEmpty()||
+            	description_textfield.getText().isEmpty() ||localisation_textfield.getText().isEmpty()||
+            	statut_textfield.getText().isEmpty()) { 
+            		
+           JOptionPane.showMessageDialog(null,"veuillez remplir tous les champs","ERREUR", JOptionPane.ERROR_MESSAGE);
+
+            	}
+            	else {
+            		DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
+            	
+         String data1[]= { typedeprorpriete_textfield.getText(), prix_mensuel_textfield.getText(),description_textfield.getText(),localisation_textfield.getText(),statut_textfield.getText()
+            	    };
+        
+         tbmodel.addRow(data1);
+            	
+        button_ajouter_P.setText("Ajouter");
+        
+
+		typedeprorpriete_textfield.setText("");
+		prix_mensuel_textfield.setText("");
+    	description_textfield.setText("");
+		localisation_textfield.setText("");
+    	statut_textfield.setText("");
+        
+            	}
+            	
+        	}});
+/////////////////////////modifier propriete avec le boutton modifier_p//////////////////////////////////////////////////////////////////////
+        
 
         buttuon_Modifier_p.setText("Modifier");
+        
+        buttuon_Modifier_p.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+         	   DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
+         	   
+         	  int i=propriete_table.getSelectedRow();
+         	  if(i<=0) {
+         		 JOptionPane.showMessageDialog(null,"veuillez selectionner une ligne du champs a modifier " ,"ERREUR", JOptionPane.ERROR_MESSAGE);
+         	  }
+         	  else
+         	  {
+      tbmodel.setValueAt(typedeprorpriete_textfield.getText(),i,0);
+      tbmodel.setValueAt(prix_mensuel_textfield.getText(),i,1);
+      tbmodel.setValueAt( description_textfield.getText(),i,2);
+      tbmodel.setValueAt(localisation_textfield.getText(),i,3);
+      tbmodel.setValueAt(statut_textfield.getText(),i,4);
+      
+         	  }
+    	   
+         	  
+            }});
 
-        button_supprimer_p.setText("Supprimer");
+        
+        propriete_table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableMouseClicked(evt);
+            }
+        });
+
+        
+         
+         
+ /////////////////////////////suprimer proprietes avec le boutton supprimer/////////////////////////////////////////////////////////////////      
+        
+
+       button_supprimer_p.setText("Supprimer");
+       
+       
+       button_supprimer_p.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	   DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
+            	   
+            	   int i=propriete_table.getSelectedRow();
+            	   if(i<0) {
+               		 JOptionPane.showMessageDialog(null,"veuillez selectionner une ligne du champs a supprimer " ,"ERREUR", JOptionPane.ERROR_MESSAGE);
+               	  }
+               	  else
+               	  {
+            	   tbmodel.removeRow(i);
+               	  } }});
 
         propriete_label.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         propriete_label.setForeground(new java.awt.Color(255, 51, 51));
@@ -475,11 +581,11 @@ public class APPLICATION extends javax.swing.JFrame {
                                 .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
-                                            .addComponent(jTextField2)
-                                            .addComponent(jTextField4))
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(typedeprorpriete_textfield, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                                            .addComponent(prix_mensuel_textfield)
+                                            .addComponent(localisation_textfield))
+                                        .addComponent(description_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(statut_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(pane_de_champ1Layout.createSequentialGroup()
                                 .addGap(13, 13, 13)
                                 .addComponent(buttuon_Modifier_p)
@@ -497,24 +603,24 @@ public class APPLICATION extends javax.swing.JFrame {
                 .addComponent(propriete_label, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(typedeprorpriete_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(prix_mensuel_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(description_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(localisation_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(statut_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(button_ajouter_P)
@@ -534,20 +640,19 @@ public class APPLICATION extends javax.swing.JFrame {
             .addGap(0, 401, Short.MAX_VALUE)
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        //////////////////////////////////// creation de jtable_propriete/////////////////////////////////////////////////
+        
+        
+        propriete_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
             },
             new String [] {
-                "Type de proprietes", "Prix mensuel", "description", "Localisation", "satatut"
+                "Type de proprietes", "Prix mensuel", "description", "Localisation", "satatutt"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(4).setHeaderValue("Profession");
+        jScrollPane1.setViewportView(propriete_table);
+        if (propriete_table.getColumnModel().getColumnCount() > 0) {
+            propriete_table.getColumnModel().getColumn(4).setHeaderValue("Profession");
         }
 
         javax.swing.GroupLayout Panel_ProprietesLayout = new javax.swing.GroupLayout(Panel_Proprietes);
@@ -681,19 +786,78 @@ public class APPLICATION extends javax.swing.JFrame {
 
         localisationlabel2.setText("Contact");
 
-        numero_de_cni_TextField.setForeground(new java.awt.Color(255, 51, 51));
+        numero_de_cni_TextField.setForeground(new java.awt.Color(0,0,0));
 
-        nom_TextField.setForeground(new java.awt.Color(255, 51, 51));
+        nom_TextField.setForeground(new java.awt.Color(0,0,0));
 
-        prenom_TextField.setForeground(new java.awt.Color(255, 51, 51));
+        prenom_TextField.setForeground(new java.awt.Color(0,0,0));
 
-        telephone_Textfield.setForeground(new java.awt.Color(255, 51, 51));
+        telephone_Textfield.setForeground(new java.awt.Color(0,0,0));
 
-        profession_textfield.setForeground(new java.awt.Color(255, 51, 51));
+        profession_textfield.setForeground(new java.awt.Color(0,0,0));
+        
+        
+        
+        
+        ///////////////////////////////////AJOUTER UN LOCATAIRE GRACE AU BOUTTON AJOUTER QUI SE TROUVE DANS LOCATAIRE////////////////////////////////
+        
+        
+       
+        button_ajouter_L.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                	
+                	// test si les champs sont vides
+                	
+                	
+                	if( numero_de_cni_TextField.getText().isEmpty() || nom_TextField.getText().isEmpty()||
+                			prenom_TextField.getText().isEmpty() || telephone_Textfield.getText().isEmpty()||
+                			profession_textfield.getText().isEmpty()) { 
+                		
+               JOptionPane.showMessageDialog(null,"veuillez remplir tous les champs","ERREUR", JOptionPane.ERROR_MESSAGE);
+
+                	}
+                	else {
+                		DefaultTableModel tbmodel_LO = (DefaultTableModel)locataire_table .getModel();
+                	
+             String data2[]= { numero_de_cni_TextField.getText(), nom_TextField.getText(),
+         			prenom_TextField.getText(), telephone_Textfield.getText(),
+         			profession_textfield.getText()};
+                	    
+            
+             tbmodel_LO.addRow(data2);
+                	
+            button_ajouter_P.setText("Ajouter");
+            
+            numero_de_cni_TextField.setText("");
+            nom_TextField.setText("");
+ 			prenom_TextField.setText("");
+ 			telephone_Textfield.setText("");
+ 			profession_textfield.setText("");
+            
+                	}
+                	
+            	}});
+        
+        
 
         button_ajouter_L.setText("Ajouter");
+        
+        ///////////////////////////////////MODIFIER UN LOCATAIRE GRACE AU BOUTTON AJOUTER QUI SE TROUVE DANS LOCATAIRE////////////////////////////////
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
 
         buttuon_Modifier_L.setText("Modifier");
+
+        ///////////////////////////////////SUPPRIMER UN LOCATAIRE GRACE AU BOUTTON AJOUTER QUI SE TROUVE DANS LOCATAIRE////////////////////////////////
+        
 
         button_supprimer_L.setText("Supprimer");
 
@@ -771,20 +935,16 @@ public class APPLICATION extends javax.swing.JFrame {
                 .addGap(190, 190, 190))
         );
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        locataire_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
             },
             new String [] {
                 "Numero de CNI", "Nom", "Prenom", "Contact", "Profession"
             }
         ));
-        jScrollPane4.setViewportView(jTable4);
-        if (jTable4.getColumnModel().getColumnCount() > 0) {
-            jTable4.getColumnModel().getColumn(4).setHeaderValue("Profession");
+        jScrollPane4.setViewportView(locataire_table);
+        if (locataire_table.getColumnModel().getColumnCount() > 0) {
+            locataire_table.getColumnModel().getColumn(4).setHeaderValue("Profession");
         }
 
         javax.swing.GroupLayout Panel_LocataireLayout = new javax.swing.GroupLayout(Panel_Locataire);
@@ -826,7 +986,85 @@ public class APPLICATION extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    
+   /////////////// fonction de recuperation des valeurs des champs de la gestion de faturation///////////////////
+    
+    public String getnumero_de_cni_TextField1() {
+    	return  numero_de_cni_TextField1.getText();
+    } 
+   public String getnom_TextField1() {
+	   return  nom_TextField1.getText();
+   }
+    public String getprenom_TextField1() {
+    	return   prenom_TextField1.getText();
+    }
+    public String gettelephone_Textfield1(){
+     return	telephone_Textfield1.getText();
+    }
+   
+///////////////////////fonction de recuperation des valeurs des champs de la gestion de proprietes//////////////////////////
+    
+    
+    public String getjTextField1() {
+    	return  typedeprorpriete_textfield.getText();
+    } 
+   public String getjTextField2() {
+	   return  prix_mensuel_textfield.getText();
+   }
+    public String getjTextField3() {
+    	return   description_textfield.getText();
+    }
+    public String getjTextField4(){
+     return	localisation_textfield.getText();
+    }
+    public String getjTextField5 () {
+    	return    statut_textfield.getText();
+    }
+    
 
+    //////////////////////////fonction de recuperation des valeurs des champs de la gestion de locataires////////////////////////
+
+    public String getnumero_de_cni_TextField() {
+    	return  numero_de_cni_TextField.getText();
+    } 
+   public String getnom_TextField() {
+	   return  nom_TextField.getText();
+   }
+    public String getprenom_TextField() {
+    	return  prenom_TextField.getText();
+    }
+    public String gettelephone_Textfield(){
+     return	telephone_Textfield.getText();
+    }
+    public String getprofession_textfield() {
+    	return   profession_textfield.getText();
+    }
+    
+    //////////////////////////////////fonction d'evenement lorsqu'on click sur une ligne du tableau///////////////////////////////////////////
+    
+    
+    
+
+    private void jTableMouseClicked (MouseEvent evt) {
+    	
+    	 DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
+    	 
+    	 String Type_de_proprietes = tbmodel.getValueAt(propriete_table.getSelectedRow(),0).toString();
+    	 String Prix_mensuel = tbmodel.getValueAt(propriete_table.getSelectedRow(),1).toString();
+    	 String description = tbmodel.getValueAt(propriete_table.getSelectedRow(),2).toString();
+    	 String Locaction = tbmodel.getValueAt(propriete_table.getSelectedRow(),3).toString();
+    	 String satatut = tbmodel.getValueAt(propriete_table.getSelectedRow(),4).toString();
+    	 
+    	 typedeprorpriete_textfield.setText(Type_de_proprietes);
+         prix_mensuel_textfield.setText(Prix_mensuel);
+         description_textfield.setText(description);
+         localisation_textfield.setText(Locaction);
+         statut_textfield.setText(satatut);
+    	
+    }; 
+
+ 
     private void Button_proprietes_fActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_fActionPerformed
         Panel_Proprietes.setVisible(true);
         Panel_Facturation.setVisible(false);
@@ -878,16 +1116,15 @@ public class APPLICATION extends javax.swing.JFrame {
     private void Button_proprietes_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_pActionPerformed
         Panel_Proprietes.setVisible(true);
         Panel_Facturation.setVisible(false);
-        Panel_Locataire.setVisible(false);
-    }//GEN-LAST:event_Button_proprietes_pActionPerformed
+        Panel_Locataire.setVisible(false);}
+    //GEN-LAST:event_Button_proprietes_pActionPerformed
 
-    private void nom_TextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nom_TextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nom_TextField1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
+   
+   /* private void boutton_enregistrerpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_pActionPerformed
+                Panel_Proprietes.setVisible(true);
+                Panel_Facturation.setVisible(false);
+                Panel_Locataire.setVisible(false);
+            }//GEN-LAST:event_Button_proprietes_pActionPerformed*/
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -913,13 +1150,13 @@ public class APPLICATION extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
              APPLICATION App=new APPLICATION();
              App.setVisible(true);
              App.setLocationRelativeTo(null);
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -946,7 +1183,7 @@ public class APPLICATION extends javax.swing.JFrame {
     private javax.swing.JButton button_supprimer_L;
     private javax.swing.JButton button_supprimer_p;
     private javax.swing.JButton buttuon_Modifier_L;
-    private javax.swing.JButton buttuon_Modifier_L1;
+    private javax.swing.JButton boutton_enregistrer;
     private javax.swing.JButton buttuon_Modifier_p;
     private javax.swing.JPanel controlleur_De_panels2;
     private javax.swing.JPanel controlleur_De_panels3;
@@ -965,14 +1202,14 @@ public class APPLICATION extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jtable;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTable propriete_table;
+    private javax.swing.JTable Facture_table;
+    private javax.swing.JTable locataire_table;
+    private javax.swing.JTextField typedeprorpriete_textfield;
+    private javax.swing.JTextField prix_mensuel_textfield;
+    private javax.swing.JTextField description_textfield;
+    private javax.swing.JTextField localisation_textfield;
+    private javax.swing.JTextField statut_textfield;
     private javax.swing.JLabel localisationlabel2;
     private javax.swing.JLabel localisationlabel3;
     private javax.swing.JLabel ncniLabel;
