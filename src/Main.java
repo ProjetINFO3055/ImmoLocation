@@ -1,13 +1,11 @@
 import java.awt.EventQueue;
 import java.sql.*;
 
-import vue.Fenetre;
-
 public class Main {
 
 	public static void main(String[] args) {
 	
-		EventQueue.invokeLater(new Runnable() {
+	/*	EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Fenetre frame = new Fenetre();
@@ -16,7 +14,7 @@ public class Main {
 					e.printStackTrace();
 				}
 			}
-		});
+		});*/
 		
 		ConnexionBD conn = new ConnexionBD();
 		
