@@ -53,7 +53,7 @@ public class Locataire {
 	}
 	
 	public void afficher() {
-		System.out.println("num CNI "+ this.getNumeroCNI() + "\n Nom: " + this.getNom() + "\n Prenom: " +  "\n Tel: " + this.getTelephone() + "\n Taf: " + this.getMetier());
+		System.out.println("num CNI "+ this.getNumeroCNI() + "\n Nom: " + this.getNom() + "\n Prenom: " +this.getPrenom() +  "\n Tel: " + this.getTelephone() + "\n Taf: " + this.getMetier());
 	}
 }
 	

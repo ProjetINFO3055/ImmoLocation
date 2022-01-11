@@ -200,7 +200,7 @@ public class LoginFrame extends javax.swing.JFrame {
         }
         else{
             dispose();
-             APPLICATION App = new APPLICATION();
+             Application App = new Application();
              App.setVisible(true);
              App.setLocationRelativeTo(null);
                 

@@ -5,16 +5,29 @@ import java.sql.*;
 import java.util.ArrayList;
 import src.controleur.*;
 import src.model.*;
+import src.vue.Application;
 
 public class Main {
 
 	public static void main(String[] args) {
 
 		ConnexionBD conn = new ConnexionBD();
+		java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+         Application App=new Application();
+         App.setVisible(true);
+         App.setLocationRelativeTo(null);
+        }
+    });
 		
 		
 		
-		//ResultSet resultats = conn.select("SELECT * FROM Authentification");
+		ResultSet resultats = conn.select("SELECT * FROM Locataire");
+		ArrayList<Locataire> r = new ArrayList();
+		r = LocataireBdController.afficherTousLesLocataire(resultats);
+		for(Locataire l: r) {
+			l.afficher();
+		}
 		
 		//INSERT INTO table VALUES ('valeur 1', 'valeur 2', ...)
 		
@@ -28,12 +41,15 @@ public class Main {
 		l.setMetier("rer");
 		
 		
-		LocataireBdController.enregistrement(l);
+		//LocataireBdController.enregistrement(l);
 		
 				
 		
 		//Authentification res = AthentificationBdController.infoLogin(resultats);
 		//res.afficher();
+		
+		
+		
 		
 		
 			   

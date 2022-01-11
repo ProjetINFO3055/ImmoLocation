@@ -6,13 +6,20 @@
 package src.vue;
 
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import src.ConnexionBD;
+import src.controleur.LocataireBdController;
+import src.model.*;
 
 
-public class APPLICATION extends javax.swing.JFrame {
+
+public class Application extends javax.swing.JFrame {
+	ConnexionBD conn = new ConnexionBD();
 
     /**
 	 * 
@@ -21,7 +28,7 @@ public class APPLICATION extends javax.swing.JFrame {
 	/**
      * Creates new form APPLICATION
      */
-    public APPLICATION() {
+    public Application() {
         initComponents();
     }
 
@@ -800,39 +807,33 @@ public class APPLICATION extends javax.swing.JFrame {
         
         
         ///////////////////////////////////AJOUTER UN LOCATAIRE GRACE AU BOUTTON AJOUTER QUI SE TROUVE DANS LOCATAIRE////////////////////////////////
-        
-        
-       
+  
         button_ajouter_L.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                	
-                	// test si les champs sont vides
-                	
-                	
-                	if( numero_de_cni_TextField.getText().isEmpty() || nom_TextField.getText().isEmpty()||
+        	public void actionPerformed(java.awt.event.ActionEvent evt) {
+             // test si les champs sont vides
+                if( numero_de_cni_TextField.getText().isEmpty() || nom_TextField.getText().isEmpty()||
                 			prenom_TextField.getText().isEmpty() || telephone_Textfield.getText().isEmpty()||
                 			profession_textfield.getText().isEmpty()) { 
                 		
-               JOptionPane.showMessageDialog(null,"veuillez remplir tous les champs","ERREUR", JOptionPane.ERROR_MESSAGE);
-
-                	}
-                	else {
-                		DefaultTableModel tbmodel_LO = (DefaultTableModel)locataire_table .getModel();
+                	JOptionPane.showMessageDialog(null,"veuillez remplir tous les champs","ERREUR", JOptionPane.ERROR_MESSAGE);
+                }else {
                 	
-             String data2[]= { numero_de_cni_TextField.getText(), nom_TextField.getText(),
-         			prenom_TextField.getText(), telephone_Textfield.getText(),
-         			profession_textfield.getText()};
-                	    
-            
-             tbmodel_LO.addRow(data2);
                 	
-            button_ajouter_P.setText("Ajouter");
+              // instantiation de l'objet Locataire
+                	Locataire l = new Locataire(Integer.parseInt(numero_de_cni_TextField.getText()), nom_TextField.getText(),
+                 			prenom_TextField.getText(), Integer.parseInt(telephone_Textfield.getText()),
+                 			profession_textfield.getText());
+                	LocataireBdController.enregistrement(l);
             
-            numero_de_cni_TextField.setText("");
-            nom_TextField.setText("");
- 			prenom_TextField.setText("");
- 			telephone_Textfield.setText("");
- 			profession_textfield.setText("");
+                	
+                	
+                	button_ajouter_P.setText("Ajouter");
+            
+                	numero_de_cni_TextField.setText("");
+                	nom_TextField.setText("");
+                	prenom_TextField.setText("");
+                	telephone_Textfield.setText("");
+                	profession_textfield.setText("");
             
                 	}
                 	
@@ -1075,6 +1076,18 @@ public class APPLICATION extends javax.swing.JFrame {
         Panel_Locataire.setVisible(true);
         Panel_Proprietes.setVisible(false);
          Panel_Facturation.setVisible(false);
+         DefaultTableModel tbmodel_LO = (DefaultTableModel)locataire_table .getModel();
+         
+			ResultSet resultats = conn.select("SELECT * FROM Locataire");
+     	ArrayList<Locataire> r = new ArrayList();
+ 		r = LocataireBdController.afficherTousLesLocataire(resultats);
+ 		for(Locataire l: r) {
+ 			l.afficher();
+ 			String data2[]= { String.valueOf(l.getNumeroCNI()), l.getNom(),
+          			l.getPrenom(), String.valueOf(l.getTelephone()),
+          			l.getMetier()};
+ 			tbmodel_LO.addRow(data2);
+ 		}
     }//GEN-LAST:event_Button_Locataire_fActionPerformed
 
     private void boutton_Facturation_fActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutton_Facturation_fActionPerformed
@@ -1099,6 +1112,7 @@ public class APPLICATION extends javax.swing.JFrame {
         Panel_Proprietes.setVisible(true);
         Panel_Facturation.setVisible(false);
         Panel_Locataire.setVisible(false);
+        
     }//GEN-LAST:event_Button_proprietes_lActionPerformed
 
     private void Facturation_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Facturation_pActionPerformed
@@ -1111,6 +1125,18 @@ public class APPLICATION extends javax.swing.JFrame {
         Panel_Proprietes.setVisible(false);
         Panel_Facturation.setVisible(false);
         Panel_Locataire.setVisible(true);
+        DefaultTableModel tbmodel_LO = (DefaultTableModel)locataire_table .getModel();
+        
+		ResultSet resultats = conn.select("SELECT * FROM Locataire");
+    	ArrayList<Locataire> r = new ArrayList();
+		r = LocataireBdController.afficherTousLesLocataire(resultats);
+		for(Locataire l: r) {
+			l.afficher();
+			String data2[]= { String.valueOf(l.getNumeroCNI()), l.getNom(),
+         			l.getPrenom(), String.valueOf(l.getTelephone()),
+         			l.getMetier()};
+			tbmodel_LO.addRow(data2);
+		}
     }//GEN-LAST:event_Button_Locataire_pActionPerformed
 
     private void Button_proprietes_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_pActionPerformed
@@ -1139,24 +1165,16 @@ public class APPLICATION extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(APPLICATION.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Application.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(APPLICATION.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Application.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(APPLICATION.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Application.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(APPLICATION.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Application.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        /*java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-             APPLICATION App=new APPLICATION();
-             App.setVisible(true);
-             App.setLocationRelativeTo(null);
-            }
-        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

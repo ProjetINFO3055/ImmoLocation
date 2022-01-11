@@ -18,10 +18,10 @@ public class LocataireBdController {
 		
 	}
 	
-/*public static ArrayList<Authentification> afficheResultat(ResultSet resultat) {
+	public static ArrayList<Locataire> afficherTousLesLocataire(ResultSet resultat) {
 		
-		ArrayList<Authentification> tab = new ArrayList();
-		String t[] = new String[2];
+		ArrayList<Locataire> tab = new ArrayList();
+		String t[] = new String[5];
 		  try {
 		         ResultSetMetaData rsmd = resultat.getMetaData();
 		         int nbCols = rsmd.getColumnCount();
@@ -33,10 +33,13 @@ public class LocataireBdController {
 		              t[i-1] = (resultat.getString(i));
 		              
 		            }
-		            Authentification obj = new Authentification();
-		              obj.setUser_name(t[0]);
-			          obj.setPwd(t[1]);
-			            tab.add(obj);
+		            Locataire obj = new Locataire();
+		              obj.setNumeroCNI(Integer.parseInt(t[0]));
+			          obj.setNom(t[1]);
+			          obj.setPrenom(t[2]);
+			          obj.setTelephone(Integer.parseInt(t[3]));
+			          obj.setMetier(t[4]);
+			          tab.add(obj);
 					  encore = resultat.next();
 		         }
 		         
@@ -46,7 +49,7 @@ public class LocataireBdController {
 		      }
 		  
 		  return tab;
-	  }*/
+	  }
 	
 }
 
