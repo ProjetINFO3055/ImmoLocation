@@ -7,6 +7,10 @@ public class Facture {
 	private int caution;
 	private int dureeContrat;
 	
+	public Facture(int id)
+	{
+		
+	}
 	
 	public Facture() {
 		
