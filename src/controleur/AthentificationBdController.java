@@ -1,48 +1,73 @@
 package controleur;
 
+
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.*;
+import model.Authentification;
+
 
 public class AthentificationBdController {
 	
+	private String nomBD;
+	private  String mdpBD;
 	
 	
-	public static Authentification infoLogin(ResultSet resultat) {
-		/* Cette fonction retourne les information de connexion:
-		 * @user_name et @pwd
-		 * sous forme d'objet de type Authentification
-		 */
-		String t[] = new String[2]; // tab qui nous permet de stoker les donnees de la requete
+	
+	
+	public  void setNom(String nom) {
 		
 		
-		  try {
-		        ResultSetMetaData rsmd = resultat.getMetaData();
-		        int nbCols = rsmd.getColumnCount();
-		        boolean encore = resultat.next();
+		 this.nomBD=nom;
+	}
+	public  void setMdp(String mdp) {
+		this.mdpBD=mdp;
+	}
+	
+	public String getNomBD() {
+		return this.nomBD;
+	}
+	public String getMdpBD() {
+		return this.mdpBD;
+	}
+	
+	public Authentification infoBD() {
 
-		        while (encore) {
-		        	//lecture du resultat et ajout dans le tableau t
-		            for (int i = 1; i <= nbCols; i++) {
-		              t[i-1] = (resultat.getString(i));
-		            }
-
-					  encore = resultat.next();
-		         }   
-		         resultat.close();
-		      } catch (SQLException e) {
-		         ConnexionBD.arret(e.getMessage());
-		      }
-		// instantiation de l'objet 
-			Authentification obj = new Authentification(t[0], t[1]);
+		  String url = "jdbc:mysql://localhost:3306/immo_location";
+		 String user = "root";
+		   String pwd = "";
 		  
-		  return obj;
-	  }
-	
+		  Connection con;
+
+		  try{
+		      Class.forName("com.mysql.cj.jdbc.Driver");
+		      con = DriverManager.getConnection(url, user, pwd);
+		      System.out.println("connexion a la BD!");
+		      Statement stat=con.createStatement();
+		      String sql="SELECT nom_usr,mdp FROM authentification";
+		      ResultSet res=stat.executeQuery(sql);
+		      
+		      while(res.next()) {
+		    	setNom(res.getString("nom_usr"));
+		    	 setMdp(res.getString("mdp"));
+		    	
+		      }
+ 
+		    }catch(SQLException|ClassNotFoundException e){
+		      System.out.println("Erreur de connexion a la BD!");
+		      System.out.println(e.toString());
+		    }
+		 Authentification authen=new Authentification(this.nomBD,this.mdpBD);
+		 return authen;
+		  
+	}
+
 }
 	
 

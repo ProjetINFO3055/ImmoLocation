@@ -1,8 +1,11 @@
 package model;
 
+
+
 public class Authentification {
 	private String user_name;
 	private String pwd;
+	private String statut;
 	
 	public Authentification() {};
 		
@@ -27,9 +30,16 @@ public class Authentification {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-	
-	public void afficher() {
-		System.out.println("User name "+ this.getUser_name() + "\n Pass: " + this.getPwd());
+
+
+	public String getStatut() {
+		return statut;
 	}
 
+
+	public void setStatut(String statut) {
+		this.statut = statut;
+	}
+	
+	
 }

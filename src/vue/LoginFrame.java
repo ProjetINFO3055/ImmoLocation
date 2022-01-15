@@ -6,6 +6,9 @@
 package vue;
 import javax.swing.JOptionPane;
 
+import controleur.AthentificationBdController;
+import model.Authentification;
+
 /**
  *
  * @author BRICE
@@ -195,15 +198,29 @@ public class LoginFrame extends javax.swing.JFrame {
     private void ENTRERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ENTRERActionPerformed
         String usernam = Getnom();
         String password = Getpassword();
+        
+        AthentificationBdController login=new AthentificationBdController();
+//login recupere les donnees present en base de donnee
+		Authentification a=new Authentification();
+//a recoit les donnees retournee par login
+		a=login.infoBD();
+//instanciation d'un objet authentification prenant en parametre les donnees saisie par le user
+		Authentification b=new Authentification(usernam,password);
         if(usernam.isEmpty() || password.isEmpty()){
             JOptionPane.showMessageDialog(this,"le nom d'utilisateur/le mot de passe ne doit pas etre vide!" ,"ERREUR", JOptionPane.ERROR_MESSAGE);
         }
-        else{
+ //comparaison des donnees de la bd et de la saisie
+        else if(a.equals(b)){
+ //si cela est correct,on lance l'application
             dispose();
              Application App = new Application();
              App.setVisible(true);
              App.setLocationRelativeTo(null);
                 
+        }
+        else {
+            JOptionPane.showMessageDialog(this,"le nom d'utilisateur ou le mot de passe incorrect" ,"Ooops", JOptionPane.ERROR_MESSAGE);
+
         }
     }//GEN-LAST:event_ENTRERActionPerformed
 

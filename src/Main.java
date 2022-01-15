@@ -5,20 +5,22 @@ import java.sql.*;
 import java.util.ArrayList;
 import model.*;
 import vue.Application;
+import vue.LoginFrame;
 
 public class Main {
 
 	public static void main(String[] args) {
 
 		ConnexionBD conn = new ConnexionBD();
-		java.awt.EventQueue.invokeLater(new Runnable() {
+	/*	java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
          Application App=new Application();
          App.setVisible(true);
          App.setLocationRelativeTo(null);
         }
-    });
-		
+    });*/
+	//en appellant loginframe l'application passe par authentification avant lancement
+		LoginFrame login=new LoginFrame();
 		
 		
 		ResultSet resultats = conn.select("SELECT * FROM Locataire");
@@ -28,7 +30,7 @@ public class Main {
 			l.afficher();
 		}
 		
-		//INSERT INTO table VALUES ('valeur 1', 'valeur 2', ...)
+	
 		
 		
 		// instantiation de l'objet 
