@@ -1,11 +1,10 @@
-package src;
+
 import java.awt.EventQueue;
-import src.controleur.*;
+import controleur.*;
 import java.sql.*;
 import java.util.ArrayList;
-import src.controleur.*;
-import src.model.*;
-import src.vue.Application;
+import model.*;
+import vue.Application;
 
 public class Main {
 

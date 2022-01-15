@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.vue;
+package vue;
 
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import src.ConnexionBD;
-import src.controleur.LocataireBdController;
-import src.model.*;
+import controleur.ConnexionBD;
+import controleur.LocataireBdController;
+import model.*;
 
 
 

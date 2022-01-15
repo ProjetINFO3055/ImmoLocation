@@ -1,12 +1,11 @@
-package src.controleur;
+package controleur;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import src.ConnexionBD;
-import src.model.*;
+import model.*;
 
 public class LocataireBdController {
 	static ConnexionBD conn = new ConnexionBD();

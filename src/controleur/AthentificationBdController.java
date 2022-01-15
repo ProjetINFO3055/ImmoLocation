@@ -1,4 +1,4 @@
-package src.controleur;
+package controleur;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -6,8 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.ConnexionBD;
-import src.model.*;
+import model.*;
 
 public class AthentificationBdController {
 	
