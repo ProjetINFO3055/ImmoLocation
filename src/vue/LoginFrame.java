@@ -204,6 +204,7 @@ public class LoginFrame extends javax.swing.JFrame {
 		Authentification a=new Authentification();
 //a recoit les donnees retournee par login
 		a=login.infoBD();
+		
 //instanciation d'un objet authentification prenant en parametre les donnees saisie par le user
 		Authentification b=new Authentification(usernam,password);
         if(usernam.isEmpty() || password.isEmpty()){

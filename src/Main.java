@@ -9,7 +9,7 @@ import vue.LoginFrame;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static  void main(String[] args) {
 
 		ConnexionBD conn = new ConnexionBD();
 	/*	java.awt.EventQueue.invokeLater(new Runnable() {
@@ -19,22 +19,20 @@ public class Main {
          App.setLocationRelativeTo(null);
         }
     });*/
+		
+
 	//en appellant loginframe l'application passe par authentification avant lancement
 		LoginFrame login=new LoginFrame();
-		
-		
+	
 		ResultSet resultats = conn.select("SELECT * FROM Locataire");
 		ArrayList<Locataire> r = new ArrayList();
 		r = LocataireBdController.afficherTousLesLocataire(resultats);
 		for(Locataire l: r) {
 			l.afficher();
 		}
-		
 	
-		
-		
 		// instantiation de l'objet 
-		Locataire l = new Locataire();
+	Locataire l = new Locataire();
 		l.setNumeroCNI(12345);
 		l.setNom("tkap");
 		l.setPrenom("pa");
