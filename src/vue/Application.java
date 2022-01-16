@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 import controleur.ConnexionBD;
 import controleur.LocataireBdController;
+import controleur.ProprieteBdController;
 import model.*;
 
 
@@ -448,6 +449,7 @@ public class Application extends javax.swing.JFrame {
         );
 
         pane_de_champ1.setBackground(new java.awt.Color(255, 255, 255));
+        
 
         jLabel2.setText("Type de propriete:");
 
@@ -488,6 +490,16 @@ public class Application extends javax.swing.JFrame {
 
             	}
             	else {
+          
+            		Propriete m=new Maison();
+            		m.setDescription(description_textfield.getText().toString());
+            		m.setPrix(Integer.parseInt(prix_mensuel_textfield.getText()));
+            		m.setLocalisation(localisation_textfield.getText().toString());
+            		//m.setStatut(statut_textfield.getText());
+            		
+            		Propriete a=new Maison(m.getType(), m.getPrix(),m.getDescription(),m.getLocalisation(),m.getStatut());
+            		ProprieteBdController c=new ProprieteBdController();
+            		c.enregistrement(a);
             		DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
             	
          String data1[]= { typedeprorpriete_textfield.getText(), prix_mensuel_textfield.getText(),description_textfield.getText(),localisation_textfield.getText(),statut_textfield.getText()

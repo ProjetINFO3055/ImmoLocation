@@ -2,31 +2,26 @@ package model;
 
 public abstract class Propriete {
 	
-	private String type;
+	private int type;
 	private float prix;
 	private String description;
 	private String localisation;
-	private boolean statut;
+	private int statut,id;
 
 	public Propriete() {}
 	
-	public Propriete(String type, float prix, String description, String localisation, boolean statut) {
+	public Propriete(int type, float prix, String description, String localisation) {
 		
 		this.type=type;
 		this.prix=prix;
 		this.description=description;
 		this.localisation=localisation;
-		this.statut=statut;	
+		this.statut=1;	
 	
 	}
 
-	public String getType() {
-		return type;
-	}
+	public abstract int getType();
 
-	public void setType(String type) {
-		this.type = type;
-	}
 
 	public float getPrix() {
 		return prix;
@@ -36,7 +31,13 @@ public abstract class Propriete {
 		this.prix = prix;
 	}
 
-	public abstract String getDescription();
+	public String getDescription() {
+		return this.description;
+		
+	}
+	public void setDescription(String description) {
+		this.description=description;
+	}
 
 
 	public String getLocalisation() {
@@ -47,12 +48,21 @@ public abstract class Propriete {
 		this.localisation = localisation;
 	}
 
-	public boolean isStatut() {
+	public int getStatut() {
+		this.statut=2;//pour toute nouvelle propriete son statut est libre
 		return statut;
 	}
 
-	public void setStatut(boolean statut) {
+	public void setStatut(int statut) {
 		this.statut = statut;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }
