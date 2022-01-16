@@ -12,43 +12,19 @@ public class Main {
 	public static  void main(String[] args) {
 
 		ConnexionBD conn = new ConnexionBD();
-	/*	java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-         Application App=new Application();
-         App.setVisible(true);
-         App.setLocationRelativeTo(null);
-        }
-    });*/
 		
+/*
+ * lanceur l'application avec systeme d'authentification.					
+ *  si vous ne connaissez pas votre user nom et mot de passe,veillez 
+ *  vous connecter avec un mot de passe et verifier votre
+ *   console,il y sera
+ */
 
-	//en appellant loginframe l'application passe par authentification avant lancement
-		LoginFrame login=new LoginFrame();
+		LoginFrame log=new LoginFrame();
+		log.lanceur();
+					 
 	
-		ResultSet resultats = conn.select("SELECT * FROM Locataire");
-		ArrayList<Locataire> r = new ArrayList();
-		r = LocataireBdController.afficherTousLesLocataire(resultats);
-		for(Locataire l: r) {
-			l.afficher();
-		}
-	
-		// instantiation de l'objet 
-	Locataire l = new Locataire();
-		l.setNumeroCNI(12345);
-		l.setNom("tkap");
-		l.setPrenom("pa");
-		l.setTelephone(2345);
-		l.setMetier("rer");
-		
-		
-		//LocataireBdController.enregistrement(l);
-		
-				
-		
-		//Authentification res = AthentificationBdController.infoLogin(resultats);
-		//res.afficher();
-		
-		
-		
+						
 		
 		
 			   
