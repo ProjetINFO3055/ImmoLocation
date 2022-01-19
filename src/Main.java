@@ -3,53 +3,30 @@ import java.awt.EventQueue;
 import src.controleur.*;
 import java.sql.*;
 import java.util.ArrayList;
-import src.controleur.*;
 import src.model.*;
 import src.vue.Application;
+import src.vue.LoginFrame;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static  void main(String[] args) {
 
 		ConnexionBD conn = new ConnexionBD();
-		java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-         Application App=new Application();
-         App.setVisible(true);
-         App.setLocationRelativeTo(null);
-        }
-    });
 		
-		
-		
-		ResultSet resultats = conn.select("SELECT * FROM Locataire");
-		ArrayList<Locataire> r = new ArrayList();
-		r = LocataireBdController.afficherTousLesLocataire(resultats);
-		for(Locataire l: r) {
-			l.afficher();
-		}
-		
-		//INSERT INTO table VALUES ('valeur 1', 'valeur 2', ...)
-		
-		
-		// instantiation de l'objet 
-		Locataire l = new Locataire();
-		l.setNumeroCNI(12345);
-		l.setNom("tkap");
-		l.setPrenom("pa");
-		l.setTelephone(2345);
-		l.setMetier("rer");
-		
-		
-		//LocataireBdController.enregistrement(l);
-		
-				
-		
-		//Authentification res = AthentificationBdController.infoLogin(resultats);
-		//res.afficher();
-		
-		
-		
+/*
+ * lanceur l'application avec systeme d'authentification.					
+ *  si vous ne connaissez pas votre user nom et mot de passe,veillez 
+ *  vous connecter avec un mot de passe et verifier votre
+ *   console,il y sera
+ *   
+ *   essayez auxi auxi
+ */
+
+		LoginFrame log=new LoginFrame();
+		log.lanceur();
+					 
+	
+						
 		
 		
 			   
