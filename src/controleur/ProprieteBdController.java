@@ -1,4 +1,4 @@
-package controleur;
+package src.controleur;
 
 public class ProprieteBdController {
 	
