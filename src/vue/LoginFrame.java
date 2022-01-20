@@ -8,9 +8,13 @@ import java.sql.ResultSet;
 
 import javax.swing.JOptionPane;
 
+<<<<<<< HEAD
 import com.mysql.cj.xdevapi.Result;
 
 import src.ConnexionBD;
+=======
+
+>>>>>>> 37b4fe7d690d186af95fbd9bced3b8ef439af891
 import src.controleur.AthentificationBdController;
 import src.model.Authentification;
 
