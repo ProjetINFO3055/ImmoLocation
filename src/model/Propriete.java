@@ -1,6 +1,6 @@
-package src.model;
+package model;
 
-public abstract class Propriete {
+public  class Propriete {
 	
 	protected int type;
 	private int prix;
@@ -23,8 +23,12 @@ public abstract class Propriete {
 	public void setType(int type) {
 		this.type=type;
 	}
+	
+	public int getType() {
+		return this.type;
+	}
 
-	public abstract int getType();
+	
 
 
 	public int getPrix() {

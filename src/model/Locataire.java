@@ -1,4 +1,4 @@
-package src.model;
+package model;
 
 public class Locataire {
 	private int numeroCNI;
