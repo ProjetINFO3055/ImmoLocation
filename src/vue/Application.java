@@ -496,7 +496,7 @@ public class Application extends javax.swing.JFrame {
 
             	}
             	else {
-          
+      
 DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                 	
                     String data1[]= { typedeprorpriete_combo.getSelectedItem().toString(), prix_mensuel_textfield.getText(),description_textArea.getText(),localisation_textfield.getText(),statut_textfield.getText()
@@ -738,7 +738,7 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
         controlleur_De_panels4.setBackground(new java.awt.Color(255, 51, 51));
 
         Button_proprietes_l.setText("Proprietes");
-        Button_proprietes_l.addActionListener(new java.awt.event.ActionListener() {
+        Button_proprietes_l.addActionListener(new java.awt.event.ActionListener() {//action perform
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Button_proprietes_lActionPerformed(evt);
             }
@@ -1106,7 +1106,7 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
          DefaultTableModel tbmodel_LO = (DefaultTableModel)locataire_table .getModel();
          
 			ResultSet resultats = conn.select("SELECT * FROM Locataire");
-     	ArrayList<Locataire> r = new ArrayList();
+     	ArrayList<Locataire> r = new ArrayList<Locataire>();
  		r = LocataireBdController.afficherTousLesLocataire(resultats);
  		for(Locataire l: r) {
  			l.afficher();
@@ -1155,7 +1155,7 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
         DefaultTableModel tbmodel_LO = (DefaultTableModel)locataire_table .getModel();
         
 		ResultSet resultats = conn.select("SELECT * FROM Locataire");
-    	ArrayList<Locataire> r = new ArrayList();
+    	ArrayList<Locataire> r = new ArrayList<Locataire>();
 		r = LocataireBdController.afficherTousLesLocataire(resultats);
 		for(Locataire l: r) {
 			l.afficher();

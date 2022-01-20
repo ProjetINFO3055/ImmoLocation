@@ -14,9 +14,6 @@ public class Main {
 	public static void main(String[] args) {
 		LoginFrame log= new LoginFrame();
 		log.lanceur();
-		
-							 		
-
 	}
 
 }

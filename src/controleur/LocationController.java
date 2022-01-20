@@ -1,9 +1,10 @@
-package model;
+package controleur;
 
 
 import java.sql.SQLException;
 
-import controleur.*;
+import model.Locataire;
+import model.Propriete;
 
 public class LocationController {
 	private boolean reussit=false;
