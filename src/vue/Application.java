@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -63,6 +64,8 @@ public class Application extends javax.swing.JFrame {
         pane_de_la_table2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         Facture_table = new javax.swing.JTable();
+        JLabel proprietes_libre= new javax.swing.JLabel("Proprietes libres");
+        JComboBox<String> proprietes_libre_combo= new JComboBox();
        
         
         ///////////////creation  elements proprietes/////////////////////////////
@@ -367,7 +370,7 @@ public class Application extends javax.swing.JFrame {
 
         Panel_principal.add(Panel_Facturation, "card2");
         
-        ////////////////////Panneau gestion de propietes//////////////////////////////////////////
+        //3222222222222222222222222222222222222222222222222222_Panneau gestion de propietes_2222222222222222222222222222222222222222222222222222222//
         
 
         pannel_tire_proprietes.setBackground(new java.awt.Color(51, 0, 51));
@@ -707,8 +710,7 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
 
         Panel_principal.add(Panel_Proprietes, "card3");
         
-        
- ////////////////////////////////////panneau gestion de LOCATAIRE/////////////////////////////////////////////////////
+  // 333333333333333333333333333333333333333333333333333_panneau gestion de LOCATAIRE_333333333333333333333333333333333333333333333333333333333333333
         
 
         pannel_titre_de_facture.setBackground(new java.awt.Color(51, 0, 51));
@@ -812,6 +814,14 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
 
         profession_textfield.setForeground(new java.awt.Color(0,0,0));
         
+        ///////////////////////////////////////////////
+        
+        //pannaue champs proprietes
+          
+          String elements1[]= {"Maison","Boutique"};
+          
+          typedeprorpriete_combo= new JComboBox<String>(elements1);
+        
         
         
         
@@ -891,6 +901,9 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                                 .addComponent(PrenomLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(localisationlabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
                             .addComponent(professionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            
+                            .addComponent(proprietes_libre, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            
                             .addComponent(button_ajouter_L))
                         .addGroup(pane_de_locataireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pane_de_locataireLayout.createSequentialGroup()
@@ -900,6 +913,8 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                                         .addGroup(pane_de_locataireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(numero_de_cni_TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                                             .addComponent(nom_TextField)
+                                            ///////////////////////////
+                                            .addComponent(proprietes_libre_combo)
                                             .addComponent(telephone_Textfield))
                                         .addComponent(prenom_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(profession_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -937,6 +952,13 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                 .addGroup(pane_de_locataireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(professionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(profession_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+               .addGroup(pane_de_locataireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            		   /////////////////////////
+                        .addComponent(proprietes_libre, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(proprietes_libre_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  
+                
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(pane_de_locataireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(button_ajouter_L)
@@ -1230,7 +1252,9 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
     private javax.swing.JTable propriete_table;
     private javax.swing.JTable Facture_table;
     private javax.swing.JTable locataire_table;
+    
     private javax.swing.JComboBox<String> typedeprorpriete_combo;
+    private javax.swing.JComboBox<String> proprietes_libre_combo;
     private javax.swing.JTextField prix_mensuel_textfield;
     private javax.swing.JTextArea description_textArea;
     private javax.swing.JTextField localisation_textfield;
