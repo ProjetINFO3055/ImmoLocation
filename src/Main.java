@@ -4,12 +4,11 @@ import src.controleur.*;
 import java.sql.*;
 import java.util.ArrayList;
 
-import controleur.LocationController;
-import model.Locataire;
-import model.Maison;
-import model.Propriete;
+import src.vue.*;
+import src.controleur.*;
 import src.model.*;
-import src.vue.Application;
+
+import src.model.*;
 import src.vue.LoginFrame;
 
 public class Main {

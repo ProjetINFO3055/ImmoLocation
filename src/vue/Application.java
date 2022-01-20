@@ -1,21 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package src.vue;
+
+
 
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import src.ConnexionBD;
 import src.controleur.LocataireBdController;
 import src.controleur.ProprieteBdController;
-import src.model.*;
+import src.model.Locataire;
+import src.model.Maison;
+import src.model.Propriete;
 
 
 
@@ -81,9 +81,9 @@ public class Application extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        typedeprorpriete_textfield = new javax.swing.JTextField();
+        typedeprorpriete_combo = new JComboBox<String>();
         prix_mensuel_textfield = new javax.swing.JTextField();
-        description_textfield = new javax.swing.JTextField();
+        description_textArea = new javax.swing.JTextArea();
         localisation_textfield = new javax.swing.JTextField();
         statut_textfield = new javax.swing.JTextField();
         button_ajouter_P = new javax.swing.JButton();
@@ -447,11 +447,16 @@ public class Application extends javax.swing.JFrame {
                 .addComponent(Button_Quitter3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        pane_de_champ1.setBackground(new java.awt.Color(255, 255, 255));
         
-
-        jLabel2.setText("Type de propriete:");
+        
+      //pannaue champs proprietes
+        
+        String elements[]= {"Maison","Boutique"};
+        
+        typedeprorpriete_combo= new JComboBox<String>(elements);
+        
+        pane_de_champ1.setBackground(new java.awt.Color(255, 255, 255));
+       jLabel2.setText("Type de propriete:");
 
         jLabel3.setText("Prix mensuel:");
 
@@ -461,11 +466,11 @@ public class Application extends javax.swing.JFrame {
 
         jLabel6.setText("Localisation");
 
-        typedeprorpriete_textfield.setForeground(new java.awt.Color(0,0,0));
+        typedeprorpriete_combo.setForeground(new java.awt.Color(0,0,0));
 
         prix_mensuel_textfield.setForeground(new java.awt.Color(0,0,0));
 
-        description_textfield.setForeground(new java.awt.Color(0,0,0));
+        description_textArea.setForeground(new java.awt.Color(0,0,0));
 
         localisation_textfield.setForeground(new java.awt.Color(0,0,0));
 
@@ -482,8 +487,8 @@ public class Application extends javax.swing.JFrame {
             	// test si les champs sont vides
             	
             	
-            	if(typedeprorpriete_textfield.getText().isEmpty() || prix_mensuel_textfield.getText().isEmpty()||
-            	description_textfield.getText().isEmpty() ||localisation_textfield.getText().isEmpty()||
+            	if( prix_mensuel_textfield.getText().isEmpty()||
+            	description_textArea.getText().isEmpty() ||localisation_textfield.getText().isEmpty()||
             	statut_textfield.getText().isEmpty()) { 
             		
            JOptionPane.showMessageDialog(null,"veuillez remplir tous les champs","ERREUR", JOptionPane.ERROR_MESSAGE);
@@ -491,30 +496,22 @@ public class Application extends javax.swing.JFrame {
             	}
             	else {
           
-            		Propriete m=new Maison();
-            		m.setDescription(description_textfield.getText().toString());
-            		m.setPrix(Integer.parseInt(prix_mensuel_textfield.getText()));
-            		m.setLocalisation(localisation_textfield.getText().toString());
-            		//m.setStatut(statut_textfield.getText());
-            		
-            		Propriete a=new Maison(m.getType(), m.getPrix(),m.getDescription(),m.getLocalisation(),m.getStatut());
-            		ProprieteBdController c=new ProprieteBdController();
-            		c.enregistrement(a);
-            		DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
-            	
-         String data1[]= { typedeprorpriete_textfield.getText(), prix_mensuel_textfield.getText(),description_textfield.getText(),localisation_textfield.getText(),statut_textfield.getText()
-            	    };
-        
-         tbmodel.addRow(data1);
-            	
-        button_ajouter_P.setText("Ajouter");
-        
+DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
+                	
+                    String data1[]= { typedeprorpriete_combo.getSelectedItem().toString(), prix_mensuel_textfield.getText(),description_textArea.getText(),localisation_textfield.getText(),statut_textfield.getText()
+                       	    };
+                   
+                    tbmodel.addRow(data1);
+                       	
+                   button_ajouter_P.setText("Ajouter");
+                   
 
-		typedeprorpriete_textfield.setText("");
-		prix_mensuel_textfield.setText("");
-    	description_textfield.setText("");
-		localisation_textfield.setText("");
-    	statut_textfield.setText("");
+           		
+           		prix_mensuel_textfield.setText("");
+               	description_textArea.setText("");
+           		localisation_textfield.setText("");
+               	statut_textfield.setText("");
+        
         
             	}
             	
@@ -534,9 +531,9 @@ public class Application extends javax.swing.JFrame {
          	  }
          	  else
          	  {
-      tbmodel.setValueAt(typedeprorpriete_textfield.getText(),i,0);
+         tbmodel.setValueAt(typedeprorpriete_combo.getSelectedItem(),i,0);
       tbmodel.setValueAt(prix_mensuel_textfield.getText(),i,1);
-      tbmodel.setValueAt( description_textfield.getText(),i,2);
+      tbmodel.setValueAt( description_textArea.getText(),i,2);
       tbmodel.setValueAt(localisation_textfield.getText(),i,3);
       tbmodel.setValueAt(statut_textfield.getText(),i,4);
       
@@ -600,10 +597,10 @@ public class Application extends javax.swing.JFrame {
                                 .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(typedeprorpriete_textfield, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                                            .addComponent(typedeprorpriete_combo, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                                             .addComponent(prix_mensuel_textfield)
                                             .addComponent(localisation_textfield))
-                                        .addComponent(description_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(description_textArea, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(statut_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(pane_de_champ1Layout.createSequentialGroup()
                                 .addGap(13, 13, 13)
@@ -622,7 +619,7 @@ public class Application extends javax.swing.JFrame {
                 .addComponent(propriete_label, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(typedeprorpriete_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(typedeprorpriete_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -630,7 +627,7 @@ public class Application extends javax.swing.JFrame {
                     .addComponent(prix_mensuel_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(description_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(description_textArea, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1019,14 +1016,12 @@ public class Application extends javax.swing.JFrame {
 ///////////////////////fonction de recuperation des valeurs des champs de la gestion de proprietes//////////////////////////
     
     
-    public String getjTextField1() {
-    	return  typedeprorpriete_textfield.getText();
-    } 
+  
    public String getjTextField2() {
 	   return  prix_mensuel_textfield.getText();
    }
     public String getjTextField3() {
-    	return   description_textfield.getText();
+    	return   description_textArea.getText();
     }
     public String getjTextField4(){
      return	localisation_textfield.getText();
@@ -1060,21 +1055,21 @@ public class Application extends javax.swing.JFrame {
     
 
     private void jTableMouseClicked (MouseEvent evt) {
-    	
-    	 DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
-    	 
-    	 String Type_de_proprietes = tbmodel.getValueAt(propriete_table.getSelectedRow(),0).toString();
-    	 String Prix_mensuel = tbmodel.getValueAt(propriete_table.getSelectedRow(),1).toString();
-    	 String description = tbmodel.getValueAt(propriete_table.getSelectedRow(),2).toString();
-    	 String Locaction = tbmodel.getValueAt(propriete_table.getSelectedRow(),3).toString();
-    	 String satatut = tbmodel.getValueAt(propriete_table.getSelectedRow(),4).toString();
-    	 
-    	 typedeprorpriete_textfield.setText(Type_de_proprietes);
-         prix_mensuel_textfield.setText(Prix_mensuel);
-         description_textfield.setText(description);
-         localisation_textfield.setText(Locaction);
-         statut_textfield.setText(satatut);
-    	
+    	int i =propriete_table.getSelectedRow();    	
+      	 DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
+      	 
+      	
+      	 String Prix_mensuel = tbmodel.getValueAt(i,1).toString();
+       	 String description = tbmodel.getValueAt(i,2).toString();
+       	 String Locaction = tbmodel.getValueAt(i,3).toString();
+       	 String satatut = tbmodel.getValueAt(i,4).toString();
+       	 
+       	typedeprorpriete_combo.setSelectedItem(tbmodel.getValueAt(i,0).toString());
+            prix_mensuel_textfield.setText(Prix_mensuel);
+            description_textArea.setText(description);
+            localisation_textfield.setText(Locaction);
+            statut_textfield.setText(satatut);
+            statut_textfield.setText(satatut);
     }; 
 
  
@@ -1235,9 +1230,9 @@ public class Application extends javax.swing.JFrame {
     private javax.swing.JTable propriete_table;
     private javax.swing.JTable Facture_table;
     private javax.swing.JTable locataire_table;
-    private javax.swing.JTextField typedeprorpriete_textfield;
+    private javax.swing.JComboBox<String> typedeprorpriete_combo;
     private javax.swing.JTextField prix_mensuel_textfield;
-    private javax.swing.JTextField description_textfield;
+    private javax.swing.JTextArea description_textArea;
     private javax.swing.JTextField localisation_textfield;
     private javax.swing.JTextField statut_textfield;
     private javax.swing.JLabel localisationlabel2;
