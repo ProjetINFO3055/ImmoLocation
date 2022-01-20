@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vue;
+package src.vue;
 import javax.swing.JOptionPane;
+
+import src.controleur.AthentificationBdController;
+import src.model.Authentification;
 
 /**
  *
@@ -195,15 +198,35 @@ public class LoginFrame extends javax.swing.JFrame {
     private void ENTRERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ENTRERActionPerformed
         String usernam = Getnom();
         String password = Getpassword();
+      
+        AthentificationBdController login=new AthentificationBdController();
+//login recupere les donnees present en base de donnee
+		Authentification a=new Authentification();
+//a recoit les donnees retournee par login
+		a=login.infoBD();
+		
+//instanciation d'un objet authentification prenant en parametre les donnees saisie par le user
+		@SuppressWarnings("deprecation")
+		Authentification b=new Authentification(User_TextFIeld.getText().toString(),mot_de_passe_Field.getText().toString() );
         if(usernam.isEmpty() || password.isEmpty()){
             JOptionPane.showMessageDialog(this,"le nom d'utilisateur/le mot de passe ne doit pas etre vide!" ,"ERREUR", JOptionPane.ERROR_MESSAGE);
         }
-        else{
+ //comparaison des donnees de la bd et de la saisie
+        else if(a.getUser_name().equals(b.getUser_name()) && a.getPwd().equals(b.getPwd())){
+ //si cela est correct,on lance l'application
             dispose();
              Application App = new Application();
              App.setVisible(true);
              App.setLocationRelativeTo(null);
+             
                 
+        }
+        else {
+        	System.out.println("en principe ton userName est : "+a.getUser_name());
+        	System.out.println("en principe ton mdp est : "+a.getPwd());
+        	
+            JOptionPane.showMessageDialog(this,"le nom d'utilisateur ou le mot de passe incorrect" ,"Ooops", JOptionPane.ERROR_MESSAGE);
+
         }
     }//GEN-LAST:event_ENTRERActionPerformed
 
@@ -217,7 +240,7 @@ public class LoginFrame extends javax.swing.JFrame {
      return mot_de_passe_Field.getPassword().toString(); 
     }
     
-    public static void main(String args[]) {
+    public static void lanceur() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
