@@ -4,8 +4,13 @@
  * and open the template in the editor.
  */
 package src.vue;
+import java.sql.ResultSet;
+
 import javax.swing.JOptionPane;
 
+import com.mysql.cj.xdevapi.Result;
+
+import src.ConnexionBD;
 import src.controleur.AthentificationBdController;
 import src.model.Authentification;
 
@@ -24,6 +29,42 @@ public class LoginFrame extends javax.swing.JFrame {
      */
     public LoginFrame() {
         initComponents();
+    }
+    
+    public static void main(String[] args) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            
+            public void run() {
+              LoginFrame frame =  new LoginFrame();
+              frame.setVisible(true);
+              frame.setLocationRelativeTo(null);
+            }
+        });
     }
 
     /**
@@ -196,23 +237,17 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_EregistrerButtonActionPerformed
 
     private void ENTRERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ENTRERActionPerformed
-        String usernam = Getnom();
-        String password = Getpassword();
-      
-        AthentificationBdController login=new AthentificationBdController();
-//login recupere les donnees present en base de donnee
-		Authentification a=new Authentification();
-//a recoit les donnees retournee par login
-		a=login.infoBD();
-		
-//instanciation d'un objet authentification prenant en parametre les donnees saisie par le user
+        ConnexionBD con = new ConnexionBD();
 		@SuppressWarnings("deprecation")
-		Authentification b=new Authentification(User_TextFIeld.getText().toString(),mot_de_passe_Field.getText().toString() );
-        if(usernam.isEmpty() || password.isEmpty()){
+        String usrName = User_TextFIeld.getText().toString();
+        String pwd = mot_de_passe_Field.getSelectedText();
+        System.out.println(usrName + " " + pwd);
+		Authentification b =new Authentification(usrName, pwd );
+        if(usrName.isEmpty() || pwd.isEmpty()){
             JOptionPane.showMessageDialog(this,"le nom d'utilisateur/le mot de passe ne doit pas etre vide!" ,"ERREUR", JOptionPane.ERROR_MESSAGE);
         }
  //comparaison des donnees de la bd et de la saisie
-        else if(a.getUser_name().equals(b.getUser_name()) && a.getPwd().equals(b.getPwd())){
+        else if(b.equals(AthentificationBdController.infoLogin(AthentificationBdController.selectAuthentification()))){
  //si cela est correct,on lance l'application
             dispose();
              Application App = new Application();
@@ -222,8 +257,6 @@ public class LoginFrame extends javax.swing.JFrame {
                 
         }
         else {
-        	System.out.println("en principe ton userName est : "+a.getUser_name());
-        	System.out.println("en principe ton mdp est : "+a.getPwd());
         	
             JOptionPane.showMessageDialog(this,"le nom d'utilisateur ou le mot de passe incorrect" ,"Ooops", JOptionPane.ERROR_MESSAGE);
 
@@ -240,41 +273,7 @@ public class LoginFrame extends javax.swing.JFrame {
      return mot_de_passe_Field.getPassword().toString(); 
     }
     
-    public static void lanceur() {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            
-            public void run() {
-              LoginFrame frame =  new LoginFrame();
-              frame.setVisible(true);
-              frame.setLocationRelativeTo(null);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ENTRER;
