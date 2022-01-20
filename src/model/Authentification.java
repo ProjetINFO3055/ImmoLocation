@@ -1,4 +1,7 @@
-package src.model;
+package model;
+
+
+
 
 public class Authentification {
 	private String user_name;
@@ -9,8 +12,8 @@ public class Authentification {
 		
 	
 	public Authentification(String usr, String pass) {
-		this.user_name = usr;
-		this.pwd = pass;
+		this.setUser_name(usr);
+		this.setPwd(pass);
 	}
 
 	public String getUser_name() {

@@ -1,9 +1,9 @@
-package src.model;
+package model;
 
 
 import java.sql.SQLException;
-import src.ConnexionBD;
-import src.controleur.*;
+
+import controleur.*;
 
 public class LocationController {
 	private boolean reussit=false;

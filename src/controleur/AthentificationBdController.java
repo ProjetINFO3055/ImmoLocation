@@ -1,4 +1,4 @@
-package src.controleur;
+package controleur;
 
 
 import java.sql.Connection;
@@ -10,8 +10,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.ConnexionBD;
-import src.model.Authentification;
+
+import model.Authentification;
 
 
 public class AthentificationBdController {

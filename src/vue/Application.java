@@ -1,4 +1,4 @@
-package src.vue;
+package vue;
 
 
 
@@ -11,12 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import src.ConnexionBD;
-import src.controleur.LocataireBdController;
-import src.controleur.ProprieteBdController;
-import src.model.Locataire;
-import src.model.Maison;
-import src.model.Propriete;
+
+import controleur.*;
+import model.*;
+;
 
 
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.vue;
+package vue;
 import java.sql.ResultSet;
 
 import javax.swing.JOptionPane;
@@ -11,12 +11,12 @@ import javax.swing.JOptionPane;
 //<<<<<<< HEAD
 import com.mysql.cj.xdevapi.Result;
 
-import src.ConnexionBD;
+
 //=======
 
 //>>>>>>> 37b4fe7d690d186af95fbd9bced3b8ef439af891
-import src.controleur.AthentificationBdController;
-import src.model.Authentification;
+import controleur.*;
+import model.*;
 
 /**
  *
@@ -35,7 +35,7 @@ public class LoginFrame extends javax.swing.JFrame {
         initComponents();
     }
     
-    public static void main(String[] args) {
+    public static void lanceur() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -244,14 +244,20 @@ public class LoginFrame extends javax.swing.JFrame {
         ConnexionBD con = new ConnexionBD();
 		@SuppressWarnings("deprecation")
         String usrName = User_TextFIeld.getText().toString();
-        String pwd = mot_de_passe_Field.getSelectedText();
+        String pwd = mot_de_passe_Field.getText().toString();
         System.out.println(usrName + " " + pwd);
 		Authentification b =new Authentification(usrName, pwd );
+		Authentification c=new Authentification();
+		c= AthentificationBdController.infoLogin(AthentificationBdController.selectAuthentification());
+		  boolean verif= b.equals(AthentificationBdController.infoLogin(AthentificationBdController.selectAuthentification()));
+          System.out.println(c.getUser_name()+"\t"+c.getPwd());
+
         if(usrName.isEmpty() || pwd.isEmpty()){
             JOptionPane.showMessageDialog(this,"le nom d'utilisateur/le mot de passe ne doit pas etre vide!" ,"ERREUR", JOptionPane.ERROR_MESSAGE);
+          
         }
  //comparaison des donnees de la bd et de la saisie
-        else if(b.equals(AthentificationBdController.infoLogin(AthentificationBdController.selectAuthentification()))){
+        else if(b.getUser_name().equals(c.getUser_name()) && b.getPwd().equals(c.getPwd())){
  //si cela est correct,on lance l'application
             dispose();
              Application App = new Application();
@@ -261,7 +267,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 
         }
         else {
-        	
+          
             JOptionPane.showMessageDialog(this,"le nom d'utilisateur ou le mot de passe incorrect" ,"Ooops", JOptionPane.ERROR_MESSAGE);
 
         }
