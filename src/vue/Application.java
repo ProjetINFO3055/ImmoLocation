@@ -65,7 +65,7 @@ public class Application extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         Facture_table = new javax.swing.JTable();
         JLabel proprietes_libre= new javax.swing.JLabel("Proprietes libres");
-        JComboBox<String> proprietes_libre_combo= new JComboBox();
+       proprietes_libre_combo= new JComboBox<String> ();
        
         
         ///////////////creation  elements proprietes/////////////////////////////
