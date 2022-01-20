@@ -18,6 +18,7 @@ public class Facture {
 		this.caution = caution;
 		this.dureeContrat = dureeContrat;
 	}
+	
 	public int getId_locataire() {
 		return id_locataire;
 	}
