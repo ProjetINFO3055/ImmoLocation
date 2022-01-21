@@ -61,6 +61,8 @@ public class Facture {
 		int q = conn.update(query); 
 	}
 	////////////////////////// Affichage des informations sur la facture //////////////////////
+	//// les informations sur l'id du locataire doivent etre celle qui sont deja dans la base de donnee
+	//// actulement : 14523, 120368, sont les id des locataires dans notre base de donnee 
 	
 	public static ArrayList<Facture> afficherToutesLesFactures(ResultSet resultat){
 		ArrayList<Facture> tab = new ArrayList();
