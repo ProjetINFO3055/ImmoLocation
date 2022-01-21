@@ -79,7 +79,7 @@ public class Application extends javax.swing.JFrame {
         pane_de_champ1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        descrition_label = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         typedeprorpriete_combo = new JComboBox<String>();
@@ -272,7 +272,7 @@ public class Application extends javax.swing.JFrame {
                             .addComponent(localisationlabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(type_pro_Label)
                             .addComponent(cautionlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(31, 31, 31)
                         .addGroup(pane_de_champ3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(boutton_enregistrer)
                             .addGroup(pane_de_champ3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -299,7 +299,7 @@ public class Application extends javax.swing.JFrame {
                 .addGroup(pane_de_champ3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pane_de_champ3Layout.createSequentialGroup()
                         .addComponent(cautionlabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(361, 361, 361))
+                        .addGap(406, 406, 406))
                     .addGroup(pane_de_champ3Layout.createSequentialGroup()
                         .addComponent(prenom_TextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -321,7 +321,7 @@ public class Application extends javax.swing.JFrame {
                 
             },
             new String [] {
-                "Identifiant du loc", "Type de propriete", "Caution", "Durée du contrat"
+                "Identifiant du loc", "Type de propriete", "Caution", "Duree du contrat"
             }
         ));
         jScrollPane3.setViewportView(Facture_table);
@@ -461,9 +461,9 @@ public class Application extends javax.swing.JFrame {
 
         jLabel3.setText("Prix mensuel:");
 
-        jLabel4.setText("description");
+        descrition_label.setText("description");
 
-        jLabel5.setText("Statut");
+        jLabel5.setText("Qualites");
 
         jLabel6.setText("Localisation");
 
@@ -497,9 +497,11 @@ public class Application extends javax.swing.JFrame {
             	}
             	else {
       
+            		
 DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                 	
-                    String data1[]= { typedeprorpriete_combo.getSelectedItem().toString(), prix_mensuel_textfield.getText(),description_textArea.getText(),localisation_textfield.getText(),statut_textfield.getText()
+                    String data1[]= { typedeprorpriete_combo.getSelectedItem().toString(), prix_mensuel_textfield.getText(),
+                    		description_textArea.getText(),localisation_textfield.getText(),statut_textfield.getText()
                        	    };
                    
                     tbmodel.addRow(data1);
@@ -546,7 +548,7 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
         
         propriete_table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableMouseClicked(evt);
+                jTableMouseClicked_pro(evt);
             }
         });
 
@@ -558,7 +560,7 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
 
        button_supprimer_p.setText("Supprimer");
        
-       
+      
        button_supprimer_p.addActionListener(new java.awt.event.ActionListener() {
                public void actionPerformed(java.awt.event.ActionEvent evt) {
             	   DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
@@ -571,7 +573,6 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                	  {
             	   tbmodel.removeRow(i);
                	  } }});
-
         propriete_label.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         propriete_label.setForeground(new java.awt.Color(255, 51, 51));
         propriete_label.setText("PROPRIETES");
@@ -588,7 +589,7 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(descrition_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(button_ajouter_P))
@@ -628,10 +629,7 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                     .addComponent(prix_mensuel_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(description_textArea, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    
                     .addComponent(localisation_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -640,6 +638,10 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                     .addComponent(statut_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(description_textArea, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(descrition_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(18, 18, 18)
+                    .addGroup(pane_de_champ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(button_ajouter_P)
                     .addComponent(buttuon_Modifier_p)
                     .addComponent(button_supprimer_p))
@@ -664,12 +666,12 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
             new Object [][] {
             },
             new String [] {
-                "Type de proprietes", "Prix mensuel", "description", "Localisation", "satatutt"
+                "Type de proprietes", "Prix mensuel_", "description", "Localisation", "Qualites"
             }
         ));
         jScrollPane1.setViewportView(propriete_table);
         if (propriete_table.getColumnModel().getColumnCount() > 0) {
-            propriete_table.getColumnModel().getColumn(4).setHeaderValue("Profession");
+            propriete_table.getColumnModel().getColumn(4).setHeaderValue("Qualites");
         }
 
         javax.swing.GroupLayout Panel_ProprietesLayout = new javax.swing.GroupLayout(Panel_Proprietes);
@@ -824,7 +826,16 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
         
         
         ///////////////////////////////////AJOUTER UN LOCATAIRE GRACE AU BOUTTON AJOUTER QUI SE TROUVE DANS LOCATAIRE////////////////////////////////
-  
+          
+        
+          
+         // ++++++++++++++ici la table
+          
+          String elements_pro_libre[]= {"Maison","Boutique"};
+          
+          proprietes_libre_combo= new JComboBox<String>(elements_pro_libre);
+        
+        
         button_ajouter_L.addActionListener(new java.awt.event.ActionListener() {
         	public void actionPerformed(java.awt.event.ActionEvent evt) {
              // test si les champs sont vides
@@ -836,48 +847,84 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                 }else {
                 	
                 	
-              // instantiation de l'objet Locataire
-                	Locataire l = new Locataire(Integer.parseInt(numero_de_cni_TextField.getText()), nom_TextField.getText(),
-                 			prenom_TextField.getText(), Integer.parseInt(telephone_Textfield.getText()),
-                 			profession_textfield.getText());
-                	LocataireBdController.enregistrement(l);
-            
+   DefaultTableModel tbmodel = (DefaultTableModel)locataire_table.getModel();
                 	
+                    String data1[]= {numero_de_cni_TextField.getText(), nom_TextField.getText(),prenom_TextField.getText(),telephone_Textfield.getText(),profession_textfield.getText()
+                       	    };
+                   
+                    tbmodel.addRow(data1);
+                    numero_de_cni_TextField.setText("");
+                   nom_TextField.setText("");
+                   prenom_TextField.setText("");
+                   telephone_Textfield.setText("");
+                   profession_textfield.setText("");
+           	   
+       
+      
                 	
-                	button_ajouter_P.setText("Ajouter");
-            
-                	numero_de_cni_TextField.setText("");
-                	nom_TextField.setText("");
-                	prenom_TextField.setText("");
-                	telephone_Textfield.setText("");
-                	profession_textfield.setText("");
-            
-                	}
+                };
                 	
-            	}});
+        		}});
         
         
 
         button_ajouter_L.setText("Ajouter");
         
-        ///////////////////////////////////MODIFIER UN LOCATAIRE GRACE AU BOUTTON AJOUTER QUI SE TROUVE DANS LOCATAIRE////////////////////////////////
+        ///////////////////////////////////MODIFIER UN LOCATAIRE GRACE AU BOUTTON Modifier QUI SE TROUVE DANS LOCATAIRE////////////////////////////////
+        buttuon_Modifier_L.setText("Modifier_l");
         
-        
-        
-        
-        
-        
-        
-        
+        buttuon_Modifier_L.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+         	   DefaultTableModel tbmodel_locataire_modifier= (DefaultTableModel)  locataire_table.getModel();
+         	   
+         	  int i=propriete_table.getSelectedRow();
+         	  if(i<=0) {
+         		 JOptionPane.showMessageDialog(null,"veuillez selectionner une ligne du champs a modifier " ,"ERREUR", JOptionPane.ERROR_MESSAGE);
+         	  }
+         	  else
+         	  {
+         		
+         		 tbmodel_locataire_modifier.setValueAt(numero_de_cni_TextField.getText(),i,0);
+         		tbmodel_locataire_modifier.setValueAt(nom_TextField.getText(),i,1);
+         		tbmodel_locataire_modifier.setValueAt( prenom_TextField.getText(),i,2);
+         		tbmodel_locataire_modifier.setValueAt(telephone_Textfield.getText(),i,3);
+         		tbmodel_locataire_modifier.setValueAt(profession_textfield.getText(),i,4);
+      
+         	  }
+    	   
+         	  
+            }});
+
+        propriete_table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            	jTableMouseClicked_locataire(evt);
+            	
+            }
+        });
+
         
 
-
-        buttuon_Modifier_L.setText("Modifier");
 
         ///////////////////////////////////SUPPRIMER UN LOCATAIRE GRACE AU BOUTTON AJOUTER QUI SE TROUVE DANS LOCATAIRE////////////////////////////////
         
 
-        button_supprimer_L.setText("Supprimer");
+        button_supprimer_L.setText("Supprimer_l");
+        
+        
+        button_supprimer_L.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                	
+             	   DefaultTableModel tbmodel_locataire = (DefaultTableModel)  locataire_table.getModel();
+             	   
+             	   int i=locataire_table.getSelectedRow();
+             	   if(i<-1) {
+                		 JOptionPane.showMessageDialog(null,"veuillez selectionner une ligne du champs a supprimer " ,"ERREUR", JOptionPane.ERROR_MESSAGE);
+                	  }
+                	  else
+                	  {
+                		  tbmodel_locataire.removeRow(i);
+                	  } }});
+
 
         gestion_de_locatairelabel.setBackground(new java.awt.Color(255, 51, 51));
         gestion_de_locatairelabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -1072,9 +1119,7 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
     //////////////////////////////////fonction d'evenement lorsqu'on click sur une ligne du tableau///////////////////////////////////////////
     
     
-    
-
-    private void jTableMouseClicked (MouseEvent evt) {
+      private void jTableMouseClicked_pro (MouseEvent evt) {
     	int i =propriete_table.getSelectedRow();    	
       	 DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
       	 
@@ -1089,8 +1134,32 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
             description_textArea.setText(description);
             localisation_textfield.setText(Locaction);
             statut_textfield.setText(satatut);
-            statut_textfield.setText(satatut);
+            
     }; 
+    
+    private void jTableMouseClicked_locataire(MouseEvent evt) {
+    	
+    	
+    	  int i =locataire_table.getSelectedRow();
+    	  
+	      	 DefaultTableModel tbmodel_tab_l = (DefaultTableModel)locataire_table.getModel();
+	      	 
+	    	 String numero_de_cni = tbmodel_tab_l.getValueAt(i,0).toString();
+	      	 String prix_mensuel= tbmodel_tab_l.getValueAt(i,1).toString();
+	       	 String nom = tbmodel_tab_l.getValueAt(i,2).toString();
+	       	 String prenom = tbmodel_tab_l.getValueAt(i,3).toString();
+	       	 String proffession =tbmodel_tab_l.getValueAt(i,4).toString();
+	       	 
+	    numero_de_cni_TextField.setText(numero_de_cni);
+	            nom_TextField.setText(prix_mensuel);
+	            prenom_TextField.setText(nom);
+	            telephone_Textfield.setText(prenom);
+	            profession_textfield.setText(proffession);
+	            
+	            System.out.println("tes");
+ 
+    }; 
+
 
  
     private void Button_proprietes_fActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_fActionPerformed
@@ -1179,11 +1248,8 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                 Panel_Locataire.setVisible(false);
             }//GEN-LAST:event_Button_proprietes_pActionPerformed*/
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+     Application App =new Application();
+     App.setVisible(true);
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -1239,7 +1305,7 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
     private javax.swing.JLabel gestion_locataireslabel;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel descrition_label;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel gestion_de_fac_label;
