@@ -1,9 +1,13 @@
 package model;
+import java.sql.Resulset;
+import java.sql.ResulsetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Facture {
 
-	private int id_locataire;
-	private int type_propriete;
+	private int idLocataire;
+	private int typePropriete;
 	private int caution;
 	private int dureeContrat;
 	
@@ -11,25 +15,25 @@ public class Facture {
 	public Facture() {
 		
 	}
-	public Facture(int id_locataire, int type_propriete, int caution, int dureeContrat) {
+	public Facture(int idLocataire, int typePropriete, int caution, int dureeContrat) {
 		
-		this.id_locataire = id_locataire;
-		this.type_propriete = type_propriete;
+		this.idLocataire = idLocataire;
+		this.typePropriete = typePropriete;
 		this.caution = caution;
 		this.dureeContrat = dureeContrat;
 	}
 	
-	public int getId_locataire() {
-		return id_locataire;
+	public int getIdLocataire() {
+		return idLocataire;
 	}
-	public void setId_locataire(int id_locataire) {
-		this.id_locataire = id_locataire;
+	public void setIdLocataire(int idLocataire) {
+		this.idLocataire = idLocataire;
 	}
-	public int getType_propriete() {
-		return type_propriete;
+	public int getTypePropriete() {
+		return typePropriete;
 	}
-	public void setType_propriete(int type_propriete) {
-		this.type_propriete = type_propriete;
+	public void setTypePropriete(int typePropriete) {
+		this.typePropriete = typePropriete;
 	}
 	public int getCaution() {
 		return caution;
@@ -48,11 +52,46 @@ public class Facture {
 		return montant;
 	}
 	public void afficheFacture() {
-		System.out.println("id locataire : "+ this.getId_locataire() + "\n type de propriete : " + this.getType_propriete() + "\n caution verser : " + this.getCaution() + "\n duree de contrat :" + this.getDureeContrat());
+		System.out.println("id locataire : "+ this.getIdLocataire() + "\n type de propriete : " + this.getTypePropriete() + "\n caution verser : " + this.getCaution() + "\n duree de contrat :" + this.getDureeContrat());
 	}
 	// insertion dans la base de donnee
 	public void insertFacture(Facture fact) {
-		String query = "INSERT INTO Facture VALUES("+fact.getId_locataire()+",'"+fact.getType_propriete()+",'"+fact.getCaution()+",'"+fact.getDureeContrat()+"')";
-		 
+		String query = "INSERT INTO `facture`(`idLocataire`, `typePropriete`, `caution`, `dure_contrat`) VALUES ('"+this.getIdLocataire()+"','"+this.getTypePropriete()+"','"+this.getCaution()+"','"+this.getDureeContrat()+"')";
+		
+		int q = conn.update(query); 
+	}
+	////////////////////////// Affichage des informations sur la facture //////////////////////
+	
+	public static ArrayList<Facture> afficherToutesLesFactures(ResultSet resultat){
+		ArrayList<Facture> tab = new ArrayList();
+		
+		String g[] = new String g[4];
+		
+		try {
+			ResultSetMetaData rsmd = resultat.getMetaData();
+			int nbCols = rsmd.getColumnCount();
+			boolean encore = resultat.next();
+
+			while (encore) {
+
+			   for (int i = 1; i <= nbCols; i++) {
+				 g[i-1] = (resultat.getString(i));
+				 
+			   }
+	
+
+		 Facture fact = new Facture();
+		 fact.setIdLocataire(Integer.parseInt(g[0]));  
+		 fact.setTypePropriete(Integer.parseInt(g[1]));
+		 fact.setCaution(Integer.parseInt(g[2]));
+		 fact.setDureeContrat(Integer.parseInt(g[3]));
+		 tab.add(fact);
+		 encore = resultat.next();
+			}
+			resultat.close();
+		}  catch (SQLException e) {
+			ConnexionBD.arret(e.getMessage());
+		 }
+		return tab;
 	}
 }
