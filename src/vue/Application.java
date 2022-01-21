@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
+import vue.icone.*;
 import controleur.*;
 import model.*;
 ;
@@ -34,7 +34,25 @@ public class Application extends javax.swing.JFrame {
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    
+    
     private void initComponents() {
+    	
+    	/////////////////////////////creation elements accueil
+   	
+    	   panel_accueil = new javax.swing.JPanel();
+           panneau_accuiel = new javax.swing.JPanel();
+           jButton_facture = new javax.swing.JButton("facture");
+           jButton_proprietes = new javax.swing.JButton("propretes");
+           jButton_locataire = new javax.swing.JButton("locataire");
+           button_quiterSysteme = new javax.swing.JButton("Quitter");
+           jLabel_A_logo = new javax.swing.JLabel();
+           jLabel_A_motbienv = new javax.swing.JLabel();
+           label_A_gest_lo = new javax.swing.JLabel();
+           jLabel_A_quitter = new javax.swing.JLabel();
+           jLabel_A_GES_PRO = new javax.swing.JLabel();
+           label_A_facture = new javax.swing.JLabel();
+
 
     	/////////////////////// creation d'elements factures/////////////////
     	
@@ -62,7 +80,7 @@ public class Application extends javax.swing.JFrame {
         pane_de_la_table2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         Facture_table = new javax.swing.JTable();
-        JLabel proprietes_libre= new javax.swing.JLabel("Proprietes libres");
+      proprietes_libre = new javax.swing.JLabel("Proprietes libres");
        proprietes_libre_combo= new JComboBox<String> ();
        
         
@@ -129,7 +147,176 @@ public class Application extends javax.swing.JFrame {
        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Panel_principal.setLayout(new java.awt.CardLayout());
+        
+        
+        ////////////////////////////++++++++++++++++++++++++++++pannaueaccueil+++++++++++++++++++++++++++++++++++++//////////////////////////////////////
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(panneau_accuiel);
+        panneau_accuiel.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        panneau_accuiel.setBackground(new java.awt.Color(51, 0, 51));
+        panneau_accuiel.setLayout(new java.awt.GridBagLayout());
+
+        jButton_facture.setIcon(new javax.swing.ImageIcon("C:\\Users\\BRICE\\git\\ImmoLocation\\src\\vue\\icone\\facture_t.png")); // NOI18N
+        jButton_facture.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_factureActionPerformed(evt);
+            }
+        });
+        java.awt.GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(27, 139, 0, 0);
+        panneau_accuiel.add(jButton_facture, gridBagConstraints);
+
+        jButton_proprietes.setIcon(new javax.swing.ImageIcon("C:\\Users\\BRICE\\git\\ImmoLocation\\src\\vue\\icone\\proprietes_t.png")); // NOI18N
+        jButton_proprietes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_proprietesActionPerformed(evt);
+            }//////////////////////////////////////////////////////////////////////////////////
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(27, 130, 0, 0);
+        panneau_accuiel.add(jButton_proprietes, gridBagConstraints);
+
+        jButton_locataire.setBackground(new java.awt.Color(51, 0, 51));
+        jButton_locataire.setIcon(new javax.swing.ImageIcon("C:\\Users\\BRICE\\git\\ImmoLocation\\src\\vue\\icone\\locataire_t.png")); // NOI18N
+        jButton_locataire.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_locataireActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(27, 109, 0, 0);
+        panneau_accuiel.add(jButton_locataire, gridBagConstraints);
+
+        button_quiterSysteme.setIcon(new javax.swing.ImageIcon("C:\\Users\\BRICE\\git\\ImmoLocation\\src\\vue\\icone\\quitter_t.png")); // NOI18N
+        button_quiterSysteme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_quiterSystemeActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(27, 100, 0, 0);
+        panneau_accuiel.add(button_quiterSysteme, gridBagConstraints);
+
+        jLabel_A_logo.setIcon(new javax.swing.ImageIcon("C:\\\\Users\\\\BRICE\\\\git\\\\ImmoLocation\\\\src\\\\vue\\\\icone\\\\logo_app.png")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.ipadx = 38;
+        gridBagConstraints.ipady = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 62, 0, 0);
+        panneau_accuiel.add(panel_accueil, gridBagConstraints);
+
+        jLabel_A_logo.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel_A_logo.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_A_logo.setText("YOU ARE ALWAYS WELCOME ON IMMOLOCATION");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 10;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 22;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(36, 159, 0, 104);
+        panneau_accuiel.add(jLabel_A_logo, gridBagConstraints);
+
+        label_A_gest_lo.setForeground(new java.awt.Color(255, 255, 255));
+        label_A_gest_lo.setText("Gestion de locataires");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 119, 51, 0);
+        panneau_accuiel.add(label_A_gest_lo, gridBagConstraints);
+
+        jLabel_A_quitter.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_A_quitter.setText("Quitter");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 149, 51, 0);
+        panneau_accuiel.add(jLabel_A_quitter, gridBagConstraints);
+
+        jLabel_A_GES_PRO.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_A_GES_PRO.setText("Gestion de proprietes");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 142, 51, 0);
+        panneau_accuiel.add(jLabel_A_GES_PRO, gridBagConstraints);
+
+        label_A_facture.setForeground(new java.awt.Color(255, 255, 255));
+        label_A_facture.setText("Facturations");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 156, 51, 0);
+        panneau_accuiel.add(label_A_facture, gridBagConstraints);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panneau_accuiel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panneau_accuiel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>                        
+
+    private void button_quiterSystemeActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+        // TODO add your handling code here:
+    }                                                    
+
+    private void jButton_locataireActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+        // TODO add your handling code here:
+    }                                                 
+
+    private void jButton_factureActionPerformed(java.awt.event.ActionEvent evt) {                                                
+        // TODO add your handling code here:
+    }                                               
+
+    private void jButton_proprietesActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+        // TODO add your handling code here:
+                                                    
+       
         
         /////////panneau facturation//////////////////////////////////////////////////////////////////////////////////
         
@@ -249,6 +436,12 @@ public class Application extends javax.swing.JFrame {
          DefaultTableModel tbmodel = (DefaultTableModel)Facture_table.getModel();
          tbmodel.addRow(data);
             
+         numero_de_cni_TextField1.setText("");
+         nom_TextField1.setText("");
+         prenom_TextField1.setText("");
+         telephone_Textfield1.setText("");
+    	   
+
             }});
         
 
@@ -1234,11 +1427,26 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
 			tbmodel_LO.addRow(data2);
 		}
     }//GEN-LAST:event_Button_Locataire_pActionPerformed
-
-    private void Button_proprietes_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_pActionPerformed
+   
+  private void Button_proprietes_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_pActionPerformed
         Panel_Proprietes.setVisible(true);
         Panel_Facturation.setVisible(false);
         Panel_Locataire.setVisible(false);}
+
+    @SuppressWarnings("unused")
+	private void Button_Quitter_f_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_pActionPerformed
+       dispose();
+       }
+    
+    @SuppressWarnings("unused")
+	private void Button_Quitter3_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_pActionPerformed
+        
+    	  dispose();}
+    
+    @SuppressWarnings("unused")
+	private void Button_Quitter4_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_pActionPerformed
+        dispose(); 
+        }
     //GEN-LAST:event_Button_proprietes_pActionPerformed
 
    
@@ -1316,6 +1524,7 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
     private javax.swing.JTable propriete_table;
     private javax.swing.JTable Facture_table;
     private javax.swing.JTable locataire_table;
+    JLabel proprietes_libre;
     
     private javax.swing.JComboBox<String> typedeprorpriete_combo;
     private javax.swing.JComboBox<String> proprietes_libre_combo;
@@ -1347,5 +1556,19 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
     private javax.swing.JTextField profession_textfield;
     private javax.swing.JTextField telephone_Textfield;
     private javax.swing.JTextField telephone_Textfield1;
+    
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton button_quiterSysteme;
+    private javax.swing.JButton jButton_facture;
+    private javax.swing.JButton jButton_locataire;
+    private javax.swing.JButton jButton_proprietes;
+    private javax.swing.JLabel jLabel_A_GES_PRO;
+    private javax.swing.JLabel jLabel_A_logo;
+    private javax.swing.JLabel jLabel_A_motbienv;
+    private javax.swing.JLabel jLabel_A_quitter;
+    private javax.swing.JPanel panel_accueil;
+    private javax.swing.JLabel label_A_facture;
+    private javax.swing.JLabel label_A_gest_lo;
+    private javax.swing.JPanel panneau_accuiel;
     // End of variables declaration//GEN-END:variables
 }
