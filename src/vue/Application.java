@@ -20,7 +20,7 @@ import model.*;
 
 public class Application extends javax.swing.JFrame {
 	ConnexionBD conn = new ConnexionBD();
-
+	
     /**
 	 * 
 	 */
@@ -30,6 +30,53 @@ public class Application extends javax.swing.JFrame {
      */
     public Application() {
         initComponents();
+        
+        //1111111111111111111111111111111111111111111111111111chargement des donnees propriete de la base de donne dans le table model
+        DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
+		ProprieteBdController p=new ProprieteBdController();
+		ArrayList<Propriete> a=new ArrayList<Propriete>();
+		ConnexionBD conn=new ConnexionBD();
+		String requete="SELECT * FROM propriete";
+
+		ResultSet result=conn.select(requete);
+			a=p.afficherToutesLesProprietes(result);
+			for(Propriete prop:a) {
+				String proprieteType = null;
+				String statut=null;
+				if(prop.getType()==1) {
+				 proprieteType="maison";
+				}
+				else if(prop.getType()==2) {
+					proprieteType="boutique";
+				}
+				if(prop.getStatut()==1) {
+					statut="OCCUPEE";
+				}
+				else{
+					statut="DISPONIBLE";
+				}
+				String data[]= {proprieteType,String.valueOf(prop.getPrix()),
+						prop.getDescription(),prop.getLocalisation(),statut};
+				
+
+   
+    tbmodel.addRow(data);}
+			
+			//22222222222222222222222222222222222222222222222chargement des donnees locataire de la base de bs
+			DefaultTableModel tbmodel_LO = (DefaultTableModel)locataire_table .getModel();
+	        
+			ResultSet resultats = conn.select("SELECT * FROM Locataire");
+	    	ArrayList<Locataire> r = new ArrayList<Locataire>();
+			r = LocataireBdController.afficherTousLesLocataire(resultats);
+			for(Locataire l: r) {
+				l.afficher();
+				String data2[]= { String.valueOf(l.getNumeroCNI()), l.getNom(),
+	         			l.getPrenom(), String.valueOf(l.getTelephone()),
+	         			l.getMetier()};
+				tbmodel_LO.addRow(data2);
+	        
+			}
+			
     }
 
     @SuppressWarnings("unchecked")
@@ -62,8 +109,8 @@ public class Application extends javax.swing.JFrame {
         pane_de_la_table2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         Facture_table = new javax.swing.JTable();
-        JLabel proprietes_libre= new javax.swing.JLabel("Proprietes libres");
-       proprietes_libre_combo= new JComboBox<String> ();
+        JLabel proprietes_libre= new javax.swing.JLabel("Proprietes libres");        
+        proprietes_libre_combo= new JComboBox<String> ();
        
         
         ///////////////creation  elements proprietes/////////////////////////////
@@ -321,7 +368,7 @@ public class Application extends javax.swing.JFrame {
                 
             },
             new String [] {
-                "Identifiant du loc", "Type de propriete", "Caution", "Durée du contrat"
+                "Identifiant du loc", "Type de propriete", "Caution", "Duree du contrat"
             }
         ));
         jScrollPane3.setViewportView(Facture_table);
@@ -496,18 +543,10 @@ public class Application extends javax.swing.JFrame {
 
             	}
             	else {
-      
-DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
-                	
-                    String data1[]= { typedeprorpriete_combo.getSelectedItem().toString(), prix_mensuel_textfield.getText(),description_textArea.getText(),localisation_textfield.getText(),statut_textfield.getText()
-                       	    };
-                   
-                    tbmodel.addRow(data1);
-                       	
-                   button_ajouter_P.setText("Ajouter");
-                   
-
-           		
+            		String type=elements[0].toString();
+            		System.out.println(type);
+            		
+                button_ajouter_P.setText("Ajouter");
            		prix_mensuel_textfield.setText("");
                	description_textArea.setText("");
            		localisation_textfield.setText("");
@@ -664,12 +703,12 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
             new Object [][] {
             },
             new String [] {
-                "Type de proprietes", "Prix mensuel", "description", "Localisation", "satatutt"
+                "Type de proprietes", "Prix mensuel", "description", "Localisation", "statut"
             }
         ));
         jScrollPane1.setViewportView(propriete_table);
         if (propriete_table.getColumnModel().getColumnCount() > 0) {
-            propriete_table.getColumnModel().getColumn(4).setHeaderValue("Profession");
+            propriete_table.getColumnModel().getColumn(4).setHeaderValue("statut");
         }
 
         javax.swing.GroupLayout Panel_ProprietesLayout = new javax.swing.GroupLayout(Panel_Proprietes);
@@ -815,10 +854,32 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
         ///////////////////////////////////////////////
         
         //pannaue champs proprietes
+    	String requete="SELECT * FROM status WHERE status=2";
+
+		ResultSet result=conn.select(requete);
+		ArrayList<Propriete> a=new ArrayList<Propriete>();
+			a=ProprieteBdController.afficherToutesLesProprietes(result);
+			for(Propriete prop:a) {
+				String proprieteType = null;
+				String statut=null;
+				if(prop.getType()==1) {
+				 proprieteType="maison";
+				}
+				else if(prop.getType()==2) {
+					proprieteType="boutique";
+				}
+				if(prop.getStatut()==1) {
+					statut="OCCUPEE";
+				}
+				else{
+					statut="DISPONIBLE";
+				}
+				String data[]= {proprieteType,prop.getLocalisation(),statut};
+			 proprietes_libre_combo= new JComboBox<String>(data);
+			}
+    
           
-          String elements1[]= {"Maison","Boutique"};
-          
-          typedeprorpriete_combo= new JComboBox<String>(elements1);
+       
         
         
         
@@ -841,7 +902,9 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                  			prenom_TextField.getText(), Integer.parseInt(telephone_Textfield.getText()),
                  			profession_textfield.getText());
                 	LocataireBdController.enregistrement(l);
-            
+                	Propriete p=new Propriete();
+                	LocationController loc=new LocationController();
+                	loc.assigner(l, p);
                 	
                 	
                 	button_ajouter_P.setText("Ajouter");
@@ -1105,16 +1168,7 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
          Panel_Facturation.setVisible(false);
          DefaultTableModel tbmodel_LO = (DefaultTableModel)locataire_table .getModel();
          
-			ResultSet resultats = conn.select("SELECT * FROM Locataire");
-     	ArrayList<Locataire> r = new ArrayList<Locataire>();
- 		r = LocataireBdController.afficherTousLesLocataire(resultats);
- 		for(Locataire l: r) {
- 			l.afficher();
- 			String data2[]= { String.valueOf(l.getNumeroCNI()), l.getNom(),
-          			l.getPrenom(), String.valueOf(l.getTelephone()),
-          			l.getMetier()};
- 			tbmodel_LO.addRow(data2);
- 		}
+ 		
     }//GEN-LAST:event_Button_Locataire_fActionPerformed
 
     private void boutton_Facturation_fActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutton_Facturation_fActionPerformed
@@ -1152,18 +1206,7 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
         Panel_Proprietes.setVisible(false);
         Panel_Facturation.setVisible(false);
         Panel_Locataire.setVisible(true);
-        DefaultTableModel tbmodel_LO = (DefaultTableModel)locataire_table .getModel();
-        
-		ResultSet resultats = conn.select("SELECT * FROM Locataire");
-    	ArrayList<Locataire> r = new ArrayList<Locataire>();
-		r = LocataireBdController.afficherTousLesLocataire(resultats);
-		for(Locataire l: r) {
-			l.afficher();
-			String data2[]= { String.valueOf(l.getNumeroCNI()), l.getNom(),
-         			l.getPrenom(), String.valueOf(l.getTelephone()),
-         			l.getMetier()};
-			tbmodel_LO.addRow(data2);
-		}
+
     }//GEN-LAST:event_Button_Locataire_pActionPerformed
 
     private void Button_proprietes_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_pActionPerformed

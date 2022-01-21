@@ -19,8 +19,7 @@ public class LocationController {
 	 */
 	
 	public boolean assigner(Locataire loc,Propriete prop) {//enregistrement en bd des donnees locataire assignée
-		LocataireBdController a=new LocataireBdController();
-		ProprieteBdController b=new ProprieteBdController();
+		
 	//	a.enregistrement(loc);//vue que l'assignation est géré par le bouton ajouté de locataire,nous ajoutons un locataire directement ici
 		
 		String sql="INSERT INTO `location`( cni_locataire, id_propriete) VALUES ('"+loc.getNumeroCNI()+"','"+prop.getId()+"')";
