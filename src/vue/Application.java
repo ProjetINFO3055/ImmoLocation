@@ -2,6 +2,7 @@ package vue;
 
 
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import model.*;
 
 public class Application extends javax.swing.JFrame {
 	ConnexionBD conn = new ConnexionBD();
-
+	
     /**
 	 * 
 	 */
@@ -30,6 +31,53 @@ public class Application extends javax.swing.JFrame {
      */
     public Application() {
         initComponents();
+        
+        //1111111111111111111111111111111111111111111111111111chargement des donnees propriete de la base de donne dans le table model
+        DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
+		ProprieteBdController p=new ProprieteBdController();
+		ArrayList<Propriete> a=new ArrayList<Propriete>();
+		ConnexionBD conn=new ConnexionBD();
+		String requete="SELECT * FROM propriete";
+
+		ResultSet result=conn.select(requete);
+			a=p.afficherToutesLesProprietes(result);
+			for(Propriete prop:a) {
+				String proprieteType = null;
+				String statut=null;
+				if(prop.getType()==1) {
+				 proprieteType="maison";
+				}
+				else if(prop.getType()==2) {
+					proprieteType="boutique";
+				}
+				if(prop.getStatut()==1) {
+					statut="OCCUPEE";
+				}
+				else{
+					statut="DISPONIBLE";
+				}
+				String data[]= {proprieteType,String.valueOf(prop.getPrix()),
+						prop.getDescription(),prop.getLocalisation(),statut};
+				
+
+   
+    tbmodel.addRow(data);}
+			
+			//22222222222222222222222222222222222222222222222chargement des donnees locataire de la base de bs
+			DefaultTableModel tbmodel_LO = (DefaultTableModel)locataire_table .getModel();
+	        
+			ResultSet resultats = conn.select("SELECT * FROM Locataire");
+	    	ArrayList<Locataire> r = new ArrayList<Locataire>();
+			r = LocataireBdController.afficherTousLesLocataire(resultats);
+			for(Locataire l: r) {
+				l.afficher();
+				String data2[]= { String.valueOf(l.getNumeroCNI()), l.getNom(),
+	         			l.getPrenom(), String.valueOf(l.getTelephone()),
+	         			l.getMetier()};
+				tbmodel_LO.addRow(data2);
+	        
+			}
+			
     }
 
     @SuppressWarnings("unchecked")
@@ -40,14 +88,14 @@ public class Application extends javax.swing.JFrame {
     	
     	/////////////////////////////creation elements accueil
    	
-    	   panel_accueil = new javax.swing.JPanel();
+    		JLabel jLabel_A_motbienv = new javax.swing.JLabel();
            panneau_accuiel = new javax.swing.JPanel();
            jButton_facture = new javax.swing.JButton("facture");
            jButton_proprietes = new javax.swing.JButton("propretes");
            jButton_locataire = new javax.swing.JButton("locataire");
            button_quiterSysteme = new javax.swing.JButton("Quitter");
            jLabel_A_logo = new javax.swing.JLabel();
-           jLabel_A_motbienv = new javax.swing.JLabel();
+           
            label_A_gest_lo = new javax.swing.JLabel();
            jLabel_A_quitter = new javax.swing.JLabel();
            jLabel_A_GES_PRO = new javax.swing.JLabel();
@@ -65,7 +113,7 @@ public class Application extends javax.swing.JFrame {
         Button_proprietes_f = new javax.swing.JButton();
         Button_Locataire_f = new javax.swing.JButton();
         boutton_Facturation_f = new javax.swing.JButton();
-        Button_Quitter_f = new javax.swing.JButton();
+        Button_retour_fac_acc = new javax.swing.JButton();
         pane_de_champ_proprietes = new javax.swing.JPanel();
         Id_loc_label = new javax.swing.JLabel();
         type_pro_Label = new javax.swing.JLabel();
@@ -80,8 +128,13 @@ public class Application extends javax.swing.JFrame {
         pane_de_la_table2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         Facture_table = new javax.swing.JTable();
+
       proprietes_libre = new javax.swing.JLabel("Proprietes libres");
        proprietes_libre_combo= new JComboBox<String> ();
+
+        JLabel proprietes_libre= new javax.swing.JLabel("Proprietes libres");        
+        proprietes_libre_combo= new JComboBox<String> ();
+
        
         
         ///////////////creation  elements proprietes/////////////////////////////
@@ -93,7 +146,7 @@ public class Application extends javax.swing.JFrame {
         Button_proprietes_p = new javax.swing.JButton();
         Button_Locataire_p = new javax.swing.JButton();
         Facturation_p = new javax.swing.JButton();
-        Button_Quitter3 = new javax.swing.JButton();
+        Button_retour_pro_acc = new javax.swing.JButton();
         pane_de_champ1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -125,7 +178,7 @@ public class Application extends javax.swing.JFrame {
         Button_proprietes_l = new javax.swing.JButton();
         Button_Locataire_l = new javax.swing.JButton();
         Facturation_l = new javax.swing.JButton();
-        Button_Quitter4 = new javax.swing.JButton();
+        Button_retour_loc_acc = new javax.swing.JButton();
         pane_de_locataire = new javax.swing.JPanel();
         ncniLabel = new javax.swing.JLabel();
         nomLabel = new javax.swing.JLabel();
@@ -175,7 +228,7 @@ public class Application extends javax.swing.JFrame {
         });
         java.awt.GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -190,15 +243,16 @@ public class Application extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(27, 130, 0, 0);
         panneau_accuiel.add(jButton_proprietes, gridBagConstraints);
 
-        jButton_locataire.setBackground(new java.awt.Color(51, 0, 51));
+        jButton_locataire.setBackground(new java.awt.Color(255,255, 255));
         jButton_locataire.setIcon(new javax.swing.ImageIcon("C:\\Users\\BRICE\\git\\ImmoLocation\\src\\vue\\icone\\locataire_t.png")); // NOI18N
+        jButton_locataire.setForeground(Color.white);
         jButton_locataire.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_locataireActionPerformed(evt);
@@ -206,7 +260,7 @@ public class Application extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(27, 109, 0, 0);
@@ -219,8 +273,8 @@ public class Application extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -234,20 +288,20 @@ public class Application extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.ipadx = 38;
         gridBagConstraints.ipady = 8;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.insets = new java.awt.Insets(18, 62, 0, 0);
-        panneau_accuiel.add(panel_accueil, gridBagConstraints);
+        panneau_accuiel.add(jLabel_A_motbienv, gridBagConstraints);
 
-        jLabel_A_logo.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
-        jLabel_A_logo.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_A_logo.setText("YOU ARE ALWAYS WELCOME ON IMMOLOCATION");
+        jLabel_A_motbienv.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel_A_motbienv.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_A_motbienv.setText("YOU ARE ALWAYS WELCOME ON IMMOLOCATION");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 10;
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.ipady = 22;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.insets = new java.awt.Insets(36, 159, 0, 104);
         panneau_accuiel.add(jLabel_A_logo, gridBagConstraints);
 
@@ -255,7 +309,7 @@ public class Application extends javax.swing.JFrame {
         label_A_gest_lo.setText("Gestion de locataires");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 119, 51, 0);
         panneau_accuiel.add(label_A_gest_lo, gridBagConstraints);
@@ -263,8 +317,8 @@ public class Application extends javax.swing.JFrame {
         jLabel_A_quitter.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_A_quitter.setText("Quitter");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 149, 51, 0);
         panneau_accuiel.add(jLabel_A_quitter, gridBagConstraints);
@@ -273,7 +327,7 @@ public class Application extends javax.swing.JFrame {
         jLabel_A_GES_PRO.setText("Gestion de proprietes");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 142, 51, 0);
         panneau_accuiel.add(jLabel_A_GES_PRO, gridBagConstraints);
@@ -282,7 +336,7 @@ public class Application extends javax.swing.JFrame {
         label_A_facture.setText("Facturations");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 156, 51, 0);
         panneau_accuiel.add(label_A_facture, gridBagConstraints);
@@ -298,27 +352,9 @@ public class Application extends javax.swing.JFrame {
             .addComponent(panneau_accuiel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
-    }// </editor-fold>                        
-
-    private void button_quiterSystemeActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-        // TODO add your handling code here:
-    }                                                    
-
-    private void jButton_locataireActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        // TODO add your handling code here:
-    }                                                 
-
-    private void jButton_factureActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        // TODO add your handling code here:
-    }                                               
-
-    private void jButton_proprietesActionPerformed(java.awt.event.ActionEvent evt) {                                                   
-        // TODO add your handling code here:
-                                                    
-       
-        
-        /////////panneau facturation//////////////////////////////////////////////////////////////////////////////////
+        Panel_principal.add(panneau_accuiel, "card1");
+    
+ /////////panneau facturation//////////////////////////////////////////////////////////////////////////////////
         
         pannel_titre_Facturation.setBackground(new java.awt.Color(51, 0, 51));
 
@@ -368,7 +404,14 @@ public class Application extends javax.swing.JFrame {
             }
         });
 
-        Button_Quitter_f.setText("QUITTER");
+        Button_retour_fac_acc.setText("Retour");
+        
+        
+        Button_retour_fac_acc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	retour(evt);
+            }
+        });
         
 
         javax.swing.GroupLayout controlleur_De_panels2Layout = new javax.swing.GroupLayout(controlleur_De_panels2);
@@ -384,7 +427,7 @@ public class Application extends javax.swing.JFrame {
                     .addGroup(controlleur_De_panels2Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(boutton_Facturation_f))
-                    .addComponent(Button_Quitter_f))
+                    .addComponent(Button_retour_fac_acc))
                 .addGap(30, 30, 30))
         );
         controlleur_De_panels2Layout.setVerticalGroup(
@@ -397,7 +440,7 @@ public class Application extends javax.swing.JFrame {
                 .addGap(65, 65, 65)
                 .addComponent(boutton_Facturation_f)
                 .addGap(63, 63, 63)
-                .addComponent(Button_Quitter_f)
+                .addComponent(Button_retour_fac_acc)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -610,7 +653,15 @@ public class Application extends javax.swing.JFrame {
             }
         });
 
-        Button_Quitter3.setText("QUITTER");
+      //  &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&77
+        
+        Button_retour_pro_acc.setText("Retour");
+        
+        Button_retour_pro_acc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	retour(evt);
+            }
+        });
 
         javax.swing.GroupLayout controlleur_De_panels3Layout = new javax.swing.GroupLayout(controlleur_De_panels3);
         controlleur_De_panels3.setLayout(controlleur_De_panels3Layout);
@@ -618,6 +669,7 @@ public class Application extends javax.swing.JFrame {
             controlleur_De_panels3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(controlleur_De_panels3Layout.createSequentialGroup()
                 .addContainerGap(45, Short.MAX_VALUE)
+       
                 .addGroup(controlleur_De_panels3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(controlleur_De_panels3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(Button_Locataire_p)
@@ -625,7 +677,7 @@ public class Application extends javax.swing.JFrame {
                     .addGroup(controlleur_De_panels3Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(Facturation_p))
-                    .addComponent(Button_Quitter3))
+                    .addComponent(Button_retour_pro_acc))
                 .addGap(30, 30, 30))
         );
         controlleur_De_panels3Layout.setVerticalGroup(
@@ -638,7 +690,7 @@ public class Application extends javax.swing.JFrame {
                 .addGap(65, 65, 65)
                 .addComponent(Facturation_p)
                 .addGap(63, 63, 63)
-                .addComponent(Button_Quitter3)
+                .addComponent(Button_retour_pro_acc)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         
@@ -702,7 +754,11 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                    button_ajouter_P.setText("Ajouter");
                    
 
-           		
+            		String type=elements[0].toString();
+            		System.out.println(type);
+            		
+                button_ajouter_P.setText("Ajouter");
+
            		prix_mensuel_textfield.setText("");
                	description_textArea.setText("");
            		localisation_textfield.setText("");
@@ -859,12 +915,16 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
             new Object [][] {
             },
             new String [] {
-                "Type de proprietes", "Prix mensuel_", "description", "Localisation", "Qualites"
+ 
+                "Type de proprietes", "Prix mensuel_", "description", "Localisation", "Qualite"
             }
         ));
         jScrollPane1.setViewportView(propriete_table);
         if (propriete_table.getColumnModel().getColumnCount() > 0) {
+
             propriete_table.getColumnModel().getColumn(4).setHeaderValue("Qualites");
+            propriete_table.getColumnModel().getColumn(4).setHeaderValue("statut");
+
         }
 
         javax.swing.GroupLayout Panel_ProprietesLayout = new javax.swing.GroupLayout(Panel_Proprietes);
@@ -953,7 +1013,13 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
             }
         });
 
-        Button_Quitter4.setText("QUITTER");
+        Button_retour_loc_acc.setText("Retour");
+        
+        Button_retour_loc_acc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	retour(evt);
+            }
+        });
 
         javax.swing.GroupLayout controlleur_De_panels4Layout = new javax.swing.GroupLayout(controlleur_De_panels4);
         controlleur_De_panels4.setLayout(controlleur_De_panels4Layout);
@@ -968,7 +1034,7 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                     .addGroup(controlleur_De_panels4Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(Facturation_l))
-                    .addComponent(Button_Quitter4))
+                    .addComponent(Button_retour_loc_acc))
                 .addGap(30, 30, 30))
         );
         controlleur_De_panels4Layout.setVerticalGroup(
@@ -981,7 +1047,7 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                 .addGap(65, 65, 65)
                 .addComponent(Facturation_l)
                 .addGap(63, 63, 63)
-                .addComponent(Button_Quitter4)
+                .addComponent(Button_retour_loc_acc)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1010,10 +1076,32 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
         ///////////////////////////////////////////////
         
         //pannaue champs proprietes
+    	String requete="SELECT * FROM status WHERE status=2";
+
+		ResultSet result=conn.select(requete);
+		ArrayList<Propriete> a=new ArrayList<Propriete>();
+			a=ProprieteBdController.afficherToutesLesProprietes(result);
+			for(Propriete prop:a) {
+				String proprieteType = null;
+				String statut=null;
+				if(prop.getType()==1) {
+				 proprieteType="maison";
+				}
+				else if(prop.getType()==2) {
+					proprieteType="boutique";
+				}
+				if(prop.getStatut()==1) {
+					statut="OCCUPEE";
+				}
+				else{
+					statut="DISPONIBLE";
+				}
+				String data[]= {proprieteType,prop.getLocalisation(),statut};
+			 proprietes_libre_combo= new JComboBox<String>(data);
+			}
+    
           
-          String elements1[]= {"Maison","Boutique"};
-          
-          typedeprorpriete_combo= new JComboBox<String>(elements1);
+       
         
         
         
@@ -1039,8 +1127,17 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                 	JOptionPane.showMessageDialog(null,"veuillez remplir tous les champs","ERREUR", JOptionPane.ERROR_MESSAGE);
                 }else {
                 	
-                	
+               
    DefaultTableModel tbmodel = (DefaultTableModel)locataire_table.getModel();
+
+              // instantiation de l'objet Locataire
+                	Locataire l = new Locataire(Integer.parseInt(numero_de_cni_TextField.getText()), nom_TextField.getText(),
+                 			prenom_TextField.getText(), Integer.parseInt(telephone_Textfield.getText()),
+                 			profession_textfield.getText());
+                	LocataireBdController.enregistrement(l);
+                	Propriete p=new Propriete();
+                	LocationController loc=new LocationController();
+                	loc.assigner(l, p);
                 	
                     String data1[]= {numero_de_cni_TextField.getText(), nom_TextField.getText(),prenom_TextField.getText(),telephone_Textfield.getText(),profession_textfield.getText()
                        	    };
@@ -1243,14 +1340,14 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
 
         Panel_principal.add(Panel_Locataire, "card4");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+       javax.swing.GroupLayout layout1 = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout1);
+        layout1.setHorizontalGroup(
+            layout1.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Panel_principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        layout1.setVerticalGroup(
+            layout1.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Panel_principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -1359,102 +1456,100 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
         Panel_Proprietes.setVisible(true);
         Panel_Facturation.setVisible(false);
         Panel_Locataire.setVisible(false);
+        panneau_accuiel.setVisible(false);
     }//GEN-LAST:event_Button_proprietes_fActionPerformed
 
     private void Button_Locataire_fActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_Locataire_fActionPerformed
         Panel_Locataire.setVisible(true);
         Panel_Proprietes.setVisible(false);
          Panel_Facturation.setVisible(false);
+         panneau_accuiel.setVisible(false);
          DefaultTableModel tbmodel_LO = (DefaultTableModel)locataire_table .getModel();
          
-			ResultSet resultats = conn.select("SELECT * FROM Locataire");
-     	ArrayList<Locataire> r = new ArrayList<Locataire>();
- 		r = LocataireBdController.afficherTousLesLocataire(resultats);
- 		for(Locataire l: r) {
- 			l.afficher();
- 			String data2[]= { String.valueOf(l.getNumeroCNI()), l.getNom(),
-          			l.getPrenom(), String.valueOf(l.getTelephone()),
-          			l.getMetier()};
- 			tbmodel_LO.addRow(data2);
- 		}
+ 		
     }//GEN-LAST:event_Button_Locataire_fActionPerformed
 
     private void boutton_Facturation_fActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutton_Facturation_fActionPerformed
        Panel_Facturation.setVisible(true);
         Panel_Locataire.setVisible(false);
         Panel_Proprietes.setVisible(false);
-    }//GEN-LAST:event_boutton_Facturation_fActionPerformed
+        panneau_accuiel.setVisible(false);    }//GEN-LAST:event_boutton_Facturation_fActionPerformed
 
     private void Facturation_lActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Facturation_lActionPerformed
         Panel_Proprietes.setVisible(false);
         Panel_Facturation.setVisible(true);
         Panel_Locataire.setVisible(false);
-    }//GEN-LAST:event_Facturation_lActionPerformed
+        panneau_accuiel.setVisible(false);    }//GEN-LAST:event_Facturation_lActionPerformed
 
     private void Button_Locataire_lActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_Locataire_lActionPerformed
         Panel_Proprietes.setVisible(false);
         Panel_Facturation.setVisible(false);
         Panel_Locataire.setVisible(true);
-    }//GEN-LAST:event_Button_Locataire_lActionPerformed
+        panneau_accuiel.setVisible(false);    }//GEN-LAST:event_Button_Locataire_lActionPerformed
 
     private void Button_proprietes_lActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_lActionPerformed
         Panel_Proprietes.setVisible(true);
         Panel_Facturation.setVisible(false);
         Panel_Locataire.setVisible(false);
-        
+        panneau_accuiel.setVisible(false);        
     }//GEN-LAST:event_Button_proprietes_lActionPerformed
 
     private void Facturation_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Facturation_pActionPerformed
         Panel_Proprietes.setVisible(false);
         Panel_Facturation.setVisible(true);
         Panel_Locataire.setVisible(false);
-    }//GEN-LAST:event_Facturation_pActionPerformed
-
+        panneau_accuiel.setVisible(false);}
     private void Button_Locataire_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_Locataire_pActionPerformed
         Panel_Proprietes.setVisible(false);
         Panel_Facturation.setVisible(false);
         Panel_Locataire.setVisible(true);
-        DefaultTableModel tbmodel_LO = (DefaultTableModel)locataire_table .getModel();
-        
-		ResultSet resultats = conn.select("SELECT * FROM Locataire");
-    	ArrayList<Locataire> r = new ArrayList<Locataire>();
-		r = LocataireBdController.afficherTousLesLocataire(resultats);
-		for(Locataire l: r) {
-			l.afficher();
-			String data2[]= { String.valueOf(l.getNumeroCNI()), l.getNom(),
-         			l.getPrenom(), String.valueOf(l.getTelephone()),
-         			l.getMetier()};
-			tbmodel_LO.addRow(data2);
-		}
-    }//GEN-LAST:event_Button_Locataire_pActionPerformed
+        panneau_accuiel.setVisible(false);}
+
+    //GEN-LAST:event_Button_Locataire_pActionPerformed
    
   private void Button_proprietes_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_pActionPerformed
         Panel_Proprietes.setVisible(true);
         Panel_Facturation.setVisible(false);
-        Panel_Locataire.setVisible(false);}
+        Panel_Locataire.setVisible(false);
+        panneau_accuiel.setVisible(false);}
 
     @SuppressWarnings("unused")
-	private void Button_Quitter_f_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_pActionPerformed
-       dispose();
+	private void retour(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_pActionPerformed
+    	 Panel_Proprietes.setVisible(false);
+         Panel_Facturation.setVisible(false);
+         Panel_Locataire.setVisible(false);
+         panneau_accuiel.setVisible(true);
        }
     
-    @SuppressWarnings("unused")
-	private void Button_Quitter3_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_pActionPerformed
-        
-    	  dispose();}
-    
-    @SuppressWarnings("unused")
-	private void Button_Quitter4_pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_pActionPerformed
-        dispose(); 
-        }
-    //GEN-LAST:event_Button_proprietes_pActionPerformed
 
-   
-   /* private void boutton_enregistrerpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_proprietes_pActionPerformed
-                Panel_Proprietes.setVisible(true);
-                Panel_Facturation.setVisible(false);
-                Panel_Locataire.setVisible(false);
-            }//GEN-LAST:event_Button_proprietes_pActionPerformed*/
+    private void button_quiterSystemeActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+    	this.dispose();    }                                                    
+
+    private void jButton_locataireActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+    	 Panel_Proprietes.setVisible(false);
+         Panel_Facturation.setVisible(false);
+         Panel_Locataire.setVisible(true);
+         panneau_accuiel.setVisible(false);
+    }                                                 
+
+    private void jButton_factureActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    	 Panel_Proprietes.setVisible(false);
+         Panel_Facturation.setVisible(true);
+         Panel_Locataire.setVisible(false);
+         panneau_accuiel.setVisible(false);
+    }                                               
+
+    private void jButton_proprietesActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+    	 Panel_Proprietes.setVisible(true);
+         Panel_Facturation.setVisible(false);
+         Panel_Locataire.setVisible(false);
+         panneau_accuiel.setVisible(false);
+                                                    
+    }
+        
+    
+// </editor-fold> 
+
     public static void main(String args[]) {
      Application App =new Application();
      App.setVisible(true);
@@ -1482,9 +1577,10 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
     private javax.swing.JButton Button_Locataire_f;
     private javax.swing.JButton Button_Locataire_l;
     private javax.swing.JButton Button_Locataire_p;
-    private javax.swing.JButton Button_Quitter3;
-    private javax.swing.JButton Button_Quitter4;
-    private javax.swing.JButton Button_Quitter_f;
+    
+    private javax.swing.JButton Button_retour_pro_acc;
+    private javax.swing.JButton Button_retour_loc_acc;
+    private javax.swing.JButton Button_retour_fac_acc;
     private javax.swing.JButton Button_proprietes_f;
     private javax.swing.JButton Button_proprietes_l;
     private javax.swing.JButton Button_proprietes_p;
@@ -1556,7 +1652,7 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
     private javax.swing.JTextField profession_textfield;
     private javax.swing.JTextField telephone_Textfield;
     private javax.swing.JTextField telephone_Textfield1;
-    
+ //   private javax.swing.JLabel proprietes_libre;
     // Variables declaration - do not modify                     
     private javax.swing.JButton button_quiterSysteme;
     private javax.swing.JButton jButton_facture;
@@ -1564,9 +1660,9 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
     private javax.swing.JButton jButton_proprietes;
     private javax.swing.JLabel jLabel_A_GES_PRO;
     private javax.swing.JLabel jLabel_A_logo;
-    private javax.swing.JLabel jLabel_A_motbienv;
+  
     private javax.swing.JLabel jLabel_A_quitter;
-    private javax.swing.JPanel panel_accueil;
+    
     private javax.swing.JLabel label_A_facture;
     private javax.swing.JLabel label_A_gest_lo;
     private javax.swing.JPanel panneau_accuiel;
