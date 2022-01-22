@@ -225,6 +225,7 @@ public class Application extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_factureActionPerformed(evt);
             }
+            
         });
         java.awt.GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -252,7 +253,7 @@ public class Application extends javax.swing.JFrame {
 
         jButton_locataire.setBackground(new java.awt.Color(255,255, 255));
         jButton_locataire.setIcon(new javax.swing.ImageIcon("C:\\Users\\BRICE\\git\\ImmoLocation\\src\\vue\\icone\\locataire_t.png")); // NOI18N
-        jButton_locataire.setForeground(Color.white);
+       // jButton_locataire.setForeground(Color.white);
         jButton_locataire.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_locataireActionPerformed(evt);
@@ -777,8 +778,8 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
             public void actionPerformed(java.awt.event.ActionEvent evt) {
          	   DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
          	   
-         	  int i=propriete_table.getSelectedRow();
-         	  if(i<=0) {
+         	  int i=locataire_table.getSelectedRow();
+         	  if(i<=-1) {
          		 JOptionPane.showMessageDialog(null,"veuillez selectionner une ligne du champs a modifier " ,"ERREUR", JOptionPane.ERROR_MESSAGE);
          	  }
          	  else
@@ -916,14 +917,12 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
             },
             new String [] {
  
-                "Type de proprietes", "Prix mensuel_", "description", "Localisation", "Qualite"
+                "Type de proprietes", "Prix mensuel_", "description", "Localisation", "Qualite","occupant"
             }
         ));
         jScrollPane1.setViewportView(propriete_table);
         if (propriete_table.getColumnModel().getColumnCount() > 0) {
-
-            propriete_table.getColumnModel().getColumn(4).setHeaderValue("Qualites");
-            propriete_table.getColumnModel().getColumn(4).setHeaderValue("statut");
+            propriete_table.getColumnModel().getColumn(5).setHeaderValue("occupant");
 
         }
 
@@ -1128,8 +1127,11 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                 }else {
                 	
                
-   DefaultTableModel tbmodel = (DefaultTableModel)locataire_table.getModel();
+   DefaultTableModel tbmodelm = (DefaultTableModel)locataire_table.getModel();
 
+   String data1[]= {numero_de_cni_TextField.getText(), nom_TextField.getText(),prenom_TextField.getText(),telephone_Textfield.getText(),profession_textfield.getText()
+	    };
+   									tbmodelm.addRow(data1);
               // instantiation de l'objet Locataire
                 	Locataire l = new Locataire(Integer.parseInt(numero_de_cni_TextField.getText()), nom_TextField.getText(),
                  			prenom_TextField.getText(), Integer.parseInt(telephone_Textfield.getText()),
@@ -1139,10 +1141,8 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
                 	LocationController loc=new LocationController();
                 	loc.assigner(l, p);
                 	
-                    String data1[]= {numero_de_cni_TextField.getText(), nom_TextField.getText(),prenom_TextField.getText(),telephone_Textfield.getText(),profession_textfield.getText()
-                       	    };
+                 
                    
-                    tbmodel.addRow(data1);
                     numero_de_cni_TextField.setText("");
                    nom_TextField.setText("");
                    prenom_TextField.setText("");
@@ -1165,20 +1165,20 @@ DefaultTableModel tbmodel = (DefaultTableModel)propriete_table.getModel();
         
         buttuon_Modifier_L.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-         	   DefaultTableModel tbmodel_locataire_modifier= (DefaultTableModel)  locataire_table.getModel();
+         	   DefaultTableModel tbmodel_tab_l= (DefaultTableModel)  locataire_table.getModel();
          	   
          	  int i=propriete_table.getSelectedRow();
-         	  if(i<=0) {
+         	  if(i<=-1) {
          		 JOptionPane.showMessageDialog(null,"veuillez selectionner une ligne du champs a modifier " ,"ERREUR", JOptionPane.ERROR_MESSAGE);
          	  }
          	  else
          	  {
          		
-         		 tbmodel_locataire_modifier.setValueAt(numero_de_cni_TextField.getText(),i,0);
-         		tbmodel_locataire_modifier.setValueAt(nom_TextField.getText(),i,1);
-         		tbmodel_locataire_modifier.setValueAt( prenom_TextField.getText(),i,2);
-         		tbmodel_locataire_modifier.setValueAt(telephone_Textfield.getText(),i,3);
-         		tbmodel_locataire_modifier.setValueAt(profession_textfield.getText(),i,4);
+         		 tbmodel_tab_l.setValueAt(numero_de_cni_TextField.getText(),i,0);
+         		tbmodel_tab_l.setValueAt(nom_TextField.getText(),i,1);
+         		tbmodel_tab_l.setValueAt( prenom_TextField.getText(),i,2);
+         		tbmodel_tab_l.setValueAt(telephone_Textfield.getText(),i,3);
+         		tbmodel_tab_l.setValueAt(profession_textfield.getText(),i,4);
       
          	  }
     	   
