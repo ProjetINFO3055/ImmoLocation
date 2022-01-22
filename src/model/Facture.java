@@ -1,9 +1,12 @@
 package model;
-import java.sql.Resulset;
-import java.sql.ResulsetMetaData;
+
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import controleur.ConnexionBD;
 
+	
 public class Facture {
 
 	private int idLocataire;
@@ -57,7 +60,7 @@ public class Facture {
 	// insertion dans la base de donnee
 	public void insertFacture(Facture fact) {
 		String query = "INSERT INTO `facture`(`idLocataire`, `typePropriete`, `caution`, `dure_contrat`) VALUES ('"+this.getIdLocataire()+"','"+this.getTypePropriete()+"','"+this.getCaution()+"','"+this.getDureeContrat()+"')";
-		
+		ConnexionBD conn=new ConnexionBD();
 		int q = conn.update(query); 
 	}
 	////////////////////////// Affichage des informations sur la facture //////////////////////
@@ -67,7 +70,7 @@ public class Facture {
 	public static ArrayList<Facture> afficherToutesLesFactures(ResultSet resultat){
 		ArrayList<Facture> tab = new ArrayList();
 		
-		String g[] = new String g[4];
+		String g[] = new String [4];
 		
 		try {
 			ResultSetMetaData rsmd = resultat.getMetaData();
